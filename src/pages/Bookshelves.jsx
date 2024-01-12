@@ -1,9 +1,33 @@
-import React from 'react'
+import {useState, useEffect} from "react";
+import Table from "../components/Table";
 
-const Bookshelves = () => {
+const bookshelves = () => {
+
+  const url = "http://localhost:3000/bookshelves"
+
+  const [bookshelves, setBookshelves] = useState([])
+
+  useEffect(() => {
+
+    async function fetchData(){
+      const res = await fetch(url)
+
+      const data = await res.json()
+
+      setBookshelves(data)
+    }
+
+    fetchData();
+
+  },[])
+
   return (
-    <div>Bookshelves</div>
+    <div>
+
+      <Table data={bookshelves} title={'Estantes'} />
+
+    </div>
   )
 }
 
-export default Bookshelves
+export default bookshelves
