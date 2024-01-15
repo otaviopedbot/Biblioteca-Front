@@ -1,30 +1,33 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import Table from "../components/Table";
+import axios from "axios";
 
 const bookshelves = () => {
 
   const url = "http://localhost:3000/bookshelves"
 
-  const [bookshelves, setBookshelves] = useState([])
+  const [bookshelves, setBookshelvess] = useState();
+
+  const getBookshelves = async () => {
+    try {
+      const res = await axios.get(url)
+      setBookshelvess(res.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
+    getBookshelves()
+  }, [])
 
-    async function fetchData(){
-      const res = await fetch(url)
 
-      const data = await res.json()
-
-      setBookshelves(data)
-    }
-
-    fetchData();
-
-  },[])
+  const title = ['Nome']
 
   return (
     <div>
 
-      <Table data={bookshelves} title={'Estantes'} />
+      <Table data={bookshelves} titles={title} tableTitle={'Estantes'} />
 
     </div>
   )

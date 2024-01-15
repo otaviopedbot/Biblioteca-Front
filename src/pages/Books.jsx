@@ -1,30 +1,32 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import Table from "../components/Table";
+import axios from "axios";
 
 const books = () => {
 
   const url = "http://localhost:3000/books"
 
-  const [books, setBooks] = useState([])
+  const [books, setBooks] = useState();
+
+  const getBooks = async () => {
+    try {
+      const res = await axios.get(url)
+      setBooks(res.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
+    getBooks()
+  }, [])
 
-    async function fetchData(){
-      const res = await fetch(url)
-
-      const data = await res.json()
-
-      setBooks(data)
-    }
-
-    fetchData();
-
-  },[])
+  const title = ['Título', 'páginas', 'Quantidade', 'ID autor', 'ID estante']
 
   return (
     <div>
 
-      <Table data={books} title={'Livros'} />
+      <Table data={books} titles={title} tableTitle={'Livros'} />
 
     </div>
   )

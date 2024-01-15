@@ -1,30 +1,33 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import Table from "../components/Table";
+import axios from "axios";
 
 const customers = () => {
 
   const url = "http://localhost:3000/customers"
 
-  const [customers, setCustomers] = useState([])
+  const [customers, setCustomers] = useState();
+
+  const getCustomer = async () => {
+    try {
+      const res = await axios.get(url)
+      setCustomers(res.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
+    getCustomer()
+  }, [])
 
-    async function fetchData(){
-      const res = await fetch(url)
 
-      const data = await res.json()
-
-      setCustomers(data)
-    }
-
-    fetchData();
-
-  },[])
+const title = ["Nome", "Telefone", "Endereço"]
 
   return (
     <div>
 
-      <Table data={customers} title={'Clientes'} />
+      <Table data={customers} titles={title} tableTitle={'Clientes'} />
 
     </div>
   )
