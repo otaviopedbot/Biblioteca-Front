@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 const Table = ({ titles, data, tableTitle }) => {
     if (!titles || !data || titles.length === 0 || data.length === 0) {
@@ -33,12 +34,12 @@ const Table = ({ titles, data, tableTitle }) => {
                                 ))}
 
                                 <td className="px-6 py-4">
-                                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                    <Link to={`${rowData.id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                         Ver
-                                    </a>
-                                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline ml-2">
+                                    </Link>
+                                    <Link to={`${rowData.id}/edit`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline ml-2">
                                         Editar
-                                    </a>
+                                    </Link>
                                 </td>
                             </tr>
 

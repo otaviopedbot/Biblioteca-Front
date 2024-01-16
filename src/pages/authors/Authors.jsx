@@ -1,32 +1,18 @@
 import { useState, useEffect } from "react";
 import Table from "../../components/Table";
+import { getAllAuthors } from '../../requests/author'
 import axios from "axios";
 
 const Authors = () => {
 
-  const [authors, setAuthors] = useState();
+  const data = getAllAuthors()
 
-  const url = "http://localhost:3000/authors"
-
-  const getAuthors = async () => {
-    try{
-      const res = await axios.get(url)
-      setAuthors(res.data)
-    }catch (error){
-      console.log(error)
-    }
-  }
-
-  useEffect(() => {
-    getAuthors()
-  }, [])
-
-  const title = ['Nome']
+  const titles = ['Nome']
 
   return (
     <div>
 
-      <Table data={authors} titles={title} tableTitle={'Autores'} />
+      <Table data={data} titles={titles} tableTitle={'Autores'} />
 
     </div>
   )

@@ -1,21 +1,4 @@
-import { useState, useEffect } from "react";
-
-const Card = ({ title, apiUrl }) => {
-
-  const [data, setData] = useState();
-  
-  const getData = async () => {
-    try{
-      const res = await axios.get(apiUrl)
-      setData(res.data)
-    }catch (error){
-      console.log(error)
-    }
-  }
-  
-  useEffect(() => {
-    getData()
-  }, [])
+const Card = ({ title, data }) => {
 
 
   return (
@@ -25,12 +8,10 @@ const Card = ({ title, apiUrl }) => {
           <div className="font-bold text-xl mb-2">{title}</div>
 
           <div className="space-y-4">
-            {Object.entries(data).map(([key, value], colIndex) => key !== 'id' && (
-              <div key={colIndex}>
-                <span className="text-sm text-gray-500 uppercase">{key}</span>
-                <span className="block text-lg font-medium">{value}</span>
-              </div>
-            ))}
+            <p>
+              aaaaaaaaaaa
+              {/* {data.name} */}
+            </p>
           </div>
 
         </div>
