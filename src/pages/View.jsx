@@ -1,10 +1,10 @@
 import React from 'react'
-import Card from '../../components/Card'
+import Card from '../components/Card'
 
 const View = () => {
   return (
     <div>
-    <Card  title={'aaa'} description={'aaab'} />
+    <Card  title={'aaa'} apiUrl={''} />
     </div>
   )
 }

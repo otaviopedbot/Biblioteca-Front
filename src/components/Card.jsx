@@ -1,6 +1,23 @@
-import React from 'react';
+import { useState, useEffect } from "react";
 
-const Card = ({ title, data }) => {
+const Card = ({ title, apiUrl }) => {
+
+  const [data, setData] = useState();
+  
+  const getData = async () => {
+    try{
+      const res = await axios.get(apiUrl)
+      setData(res.data)
+    }catch (error){
+      console.log(error)
+    }
+  }
+  
+  useEffect(() => {
+    getData()
+  }, [])
+
+
   return (
     <div className="flex items-center justify-center h-screen mt-2">
       <div className="max-w-sm rounded overflow-hidden shadow-md bg-white dark:bg-gray-800 text-gray-700 dark:text-white">
