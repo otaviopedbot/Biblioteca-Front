@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'
+import { postAuthor } from '../../requests/author';
 
 //componentes:
 import Card from '../../components/Card'
@@ -8,35 +8,58 @@ import Check from '../../components/buttons/Check'
 import Return from '../../components/buttons/Return'
 
 
-const EditAuthors = () => {
-
-  const { id } = useParams();
-
-
-  const editAuthor = (e) => {
-    e.preventDefault()
-    console.log('teste')
-  }
+const CreateAuthors = () => {
 
   const [name, setName] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
+
+  const saveAuthor = (e) => {
+
+    e.preventDefault()
+
+    if(name === ""){
+      alert('Preencha todos os campos corretamente')
+      return;
+    }
+
+    try{
+      setIsLoading(true)
+      postAuthor(name)
+      alert('Autor cadastrado com sucesso');
+      navigate('/authors')
+      setIsLoading(false)
+
+    }catch(error){
+      alert('Erro ao cadastrar autor');
+      console.log(error)
+      setIsLoading(false)
+    }
+
+  }
 
 
   return (
     <div>
 
-      <Card title={'Editar Autor'}>
+      <Card title={'Novo Autor'}>
 
 
-        <form onSubmit={editAuthor}>
+        <form onSubmit={saveAuthor}>
 
           <div>
             <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
             <input type="text" value={name} onChange={(e) => setName(e.target.value)} id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Nome' />
           </div>
 
-          <Check />
+          {!isLoading && (
 
-          <Link to={'/authors/'+id}>
+            <Check />
+          
+          )}
+
+
+          <Link to={'/authors'}>
             <Return />
           </Link>
 
@@ -49,4 +72,4 @@ const EditAuthors = () => {
   )
 }
 
-export default EditAuthors
+export default CreateAuthors

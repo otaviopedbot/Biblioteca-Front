@@ -6,6 +6,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Home from './pages/Home';
 
 import Authors from './pages/authors/Authors';
+import CreateAuthors from './pages/authors/CreateAuthors';
 import ViewAuthors from './pages/authors/ViewAuthors';
 import EditAuthors from './pages/authors/EditAuthors';
 
@@ -17,6 +18,7 @@ import Customers from './pages/customers/Customers';
 
 // components
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -32,6 +34,7 @@ function App() {
         {/* authors */}
         <Route path="/authors" element={<Authors />} />
         <Route path="/authors/:id" element={<ViewAuthors />} />
+        <Route path="/authors/create" element={<CreateAuthors />} />
         <Route path="/authors/:id/edit" element={<EditAuthors />} />
 
         {/* <Route path="/books" element={<Books />} />
@@ -48,6 +51,7 @@ function App() {
 
       </Routes>
       </BrowserRouter>
+      <Footer />
     </>
   )
 }
