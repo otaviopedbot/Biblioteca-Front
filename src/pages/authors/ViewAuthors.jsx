@@ -1,20 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { getAuthor } from '../../requests/author';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-// components
+// componentes:
 import Card from '../../components/Card';
-import Return from '../../components/buttons/Return'
-import Edit from '../../components/buttons/Edit'
-import Delete from '../../components/buttons/Delete'
+import Return from '../../components/buttons/ReturnPurple'
+import Edit from '../../components/buttons/EditBlue'
+import Delete from '../../components/buttons/DeleteRed'
 
 
 const ViewAuthors = () => {
   const { id } = useParams();
-  const data = getAuthor(id);
+  const [data, setData] = useState()
 
-  console.log(data);
+
+
+
+
+  useEffect(() => {
+
+    const showAuthor = async () => {
+      try {
+        const result = await getAuthor(id);
+        setData(result);
+      } catch (error) {
+        console.error('Erro ao obter autor:', error);
+      }
+    };
+
+    showAuthor();
+
+  }, [id]);
+
+
+
+  console.log(data)
+
 
   return (
     <div>
@@ -22,6 +44,7 @@ const ViewAuthors = () => {
       <Card title={'Detalhes do Autor'}>
 
         <div>
+          
           {!data || data.length === 0 ? (
 
             <h1>Autor não encontrado</h1>
@@ -29,16 +52,13 @@ const ViewAuthors = () => {
           ) : (
 
             <>
-              {data.map((author) => (
 
 
-                <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={author.id}>
-                  <li>ID: {author.id}</li>
-                  <li>Nome: {author.name}</li>
-                </ul>
+              <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={data.id}>
+                <li>ID: {data.id}</li>
+                <li>Nome: {data.name}</li>
+              </ul>
 
-
-              ))}
 
               {/* botões: */}
 

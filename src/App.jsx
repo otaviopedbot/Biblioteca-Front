@@ -1,6 +1,7 @@
 import './App.css'
-
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // pages
 import Home from './pages/Home';
@@ -26,18 +27,18 @@ function App() {
   return (
     <>
       <BrowserRouter>
-      <Navbar />
-      <Routes>
+        <Navbar />
+        <Routes>
 
-        <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
 
-        {/* authors */}
-        <Route path="/authors" element={<Authors />} />
-        <Route path="/authors/:id" element={<ViewAuthors />} />
-        <Route path="/authors/create" element={<CreateAuthors />} />
-        <Route path="/authors/:id/edit" element={<EditAuthors />} />
+          {/* authors */}
+          <Route path="/authors" element={<Authors />} />
+          <Route path="/authors/:id" element={<ViewAuthors />} />
+          <Route path="/authors/create" element={<CreateAuthors />} />
+          <Route path="/authors/:id/edit" element={<EditAuthors />} />
 
-        {/* <Route path="/books" element={<Books />} />
+          {/* <Route path="/books" element={<Books />} />
         <Route path="/books/:id" element={<View />} />
 
         <Route path="/bookshelves" element={<Bookshelves />} />
@@ -49,9 +50,22 @@ function App() {
         <Route path="/rents" element={<Rents />} />
         <Route path="/rents/:id" element={<View />} /> */}
 
-      </Routes>
+        </Routes>
       </BrowserRouter>
       <Footer />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        limit={3}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition:Bounce/>
     </>
   )
 }

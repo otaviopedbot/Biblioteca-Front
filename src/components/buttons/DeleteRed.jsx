@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Delete = () => {
+const DeleteRed = () => {
     return (
         <button
             type="button"
@@ -17,4 +17,4 @@ const Delete = () => {
     )
 }
 
-export default Delete
+export default DeleteRed

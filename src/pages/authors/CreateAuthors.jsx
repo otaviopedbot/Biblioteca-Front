@@ -4,8 +4,9 @@ import { postAuthor } from '../../requests/author';
 
 //componentes:
 import Card from '../../components/Card'
-import Check from '../../components/buttons/Check'
-import Return from '../../components/buttons/Return'
+import Check from '../../components/buttons/CheckBlue'
+import Return from '../../components/buttons/ReturnPurple'
+import { toast } from 'react-toastify';
 
 
 const CreateAuthors = () => {
@@ -19,19 +20,19 @@ const CreateAuthors = () => {
     e.preventDefault()
 
     if(name === ""){
-      alert('Preencha todos os campos corretamente')
+      toast.warn('Preencha todos os campos corretamente')
       return;
     }
 
     try{
       setIsLoading(true)
       postAuthor(name)
-      alert('Autor cadastrado com sucesso');
+      toast.success('Autor cadastrado com sucesso');
       navigate('/authors')
       setIsLoading(false)
 
     }catch(error){
-      alert('Erro ao cadastrar autor');
+      toast.error('Erro ao cadastrar autor');
       console.log(error)
       setIsLoading(false)
     }

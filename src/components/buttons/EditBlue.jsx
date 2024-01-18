@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Edit = () => {
+const EditBlue = () => {
 
     return (
 
@@ -24,4 +24,4 @@ const Edit = () => {
     )
 }
 
-export default Edit
+export default EditBlue

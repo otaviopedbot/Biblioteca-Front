@@ -1,21 +1,20 @@
-import { useState, useEffect } from "react";
-import Table from "../../components/Table";
-import { getAllAuthors } from '../../requests/author'
-import axios from "axios";
+import React from 'react';
+import { getAllAuthors } from '../../requests/author';
+import Table from '../../components/Table';
 
 const Authors = () => {
-
-  const data = getAllAuthors()
-
-  const titles = ['Nome']
+  const data = getAllAuthors();
+  const titles = ['Nome'];
 
   return (
-    <div>
+    !data || data.length === 0 ? (
+      <h1>Autor não encontrado</h1>
+    ) : (
+      <div>
+        <Table data={data} titles={titles} tableTitle={'Autores'} />
+      </div>
+    )
+  );
+};
 
-      <Table data={data} titles={titles} tableTitle={'Autores'} />
-
-    </div>
-  )
-}
-
-export default Authors
+export default Authors;
