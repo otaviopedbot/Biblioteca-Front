@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ReturnPurple = () => {
+const Return = () => {
 
     return (
         <button
@@ -13,4 +13,4 @@ const ReturnPurple = () => {
     )
 }
 
-export default ReturnPurple
+export default Return

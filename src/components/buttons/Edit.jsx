@@ -1,6 +1,6 @@
 import React from 'react'
 
-const EditBlue = () => {
+const Edit = () => {
 
     return (
 
@@ -19,9 +19,7 @@ const EditBlue = () => {
             </svg>
         </button>
 
-
-
     )
 }
 
-export default EditBlue
+export default Edit

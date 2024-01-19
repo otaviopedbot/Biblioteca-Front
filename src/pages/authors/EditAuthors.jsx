@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getAuthor, updateAuthor } from '../../requests/author';
 
 //componentes:
 import Card from '../../components/Card'
-import Check from '../../components/buttons/CheckBlue'
-import Return from '../../components/buttons/ReturnPurple'
+import Check from '../../components/buttons/Check'
+import Return from '../../components/buttons/Return'
 import { toast } from 'react-toastify';
 
 
@@ -28,7 +27,7 @@ const EditAuthors = () => {
       try {
         const data = await getAuthor(id);
         setAuthor({
-          name:data.name
+          name: data.name
         });
       } catch (error) {
         console.error('Erro ao obter autor:', error);
@@ -40,19 +39,16 @@ const EditAuthors = () => {
   }, [id]);
 
 
-
   const editAuthor = async (e) => {
-    
+
     e.preventDefault();
 
     try {
       setIsLoading(true);
-
       updateAuthor(id, author.name)
-
       toast.success('Autor editado com sucesso');
-      navigate('/authors/' + id);
       setIsLoading(false);
+      navigate('/authors/' + id);
     } catch (error) {
       toast.error('Erro ao editar autor');
       console.error(error);
@@ -60,6 +56,7 @@ const EditAuthors = () => {
     }
   };
 
+  
   return (
     <div>
 
@@ -71,8 +68,10 @@ const EditAuthors = () => {
 
           <div>
             <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
-            <input type="text" value={author.name} onChange={(e) => setAuthor({...author, name:e.target.value})} id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Nome' />
+            <input type="text" value={author.name} onChange={(e) => setAuthor({ ...author, name: e.target.value })} id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Nome' />
           </div>
+
+          {/* botões */}
 
           {!isLoading && (
 

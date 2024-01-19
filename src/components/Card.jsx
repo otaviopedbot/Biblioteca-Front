@@ -6,7 +6,7 @@ const Card = ({ title, children }) => {
         <div className="px-6 py-4">
           <div className="font-bold text-xl mb-2 text-center">{title}</div>
 
-          <div className="space-y-4">
+          <div className="space-y-4 text-center">
 
             {children}
 

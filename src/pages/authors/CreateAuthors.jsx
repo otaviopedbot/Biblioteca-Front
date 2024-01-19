@@ -4,8 +4,8 @@ import { postAuthor } from '../../requests/author';
 
 //componentes:
 import Card from '../../components/Card'
-import Check from '../../components/buttons/CheckBlue'
-import Return from '../../components/buttons/ReturnPurple'
+import Check from '../../components/buttons/Check'
+import Return from '../../components/buttons/Return'
 import { toast } from 'react-toastify';
 
 
@@ -19,19 +19,19 @@ const CreateAuthors = () => {
 
     e.preventDefault()
 
-    if(name === ""){
+    if (name === "") {
       toast.warn('Preencha todos os campos corretamente')
       return;
     }
 
-    try{
+    try {
       setIsLoading(true)
       postAuthor(name)
-      toast.success('Autor cadastrado com sucesso');
+      toast.success(`Autor ${name} cadastrado com sucesso`);
       navigate('/authors')
       setIsLoading(false)
 
-    }catch(error){
+    } catch (error) {
       toast.error('Erro ao cadastrar autor');
       console.log(error)
       setIsLoading(false)
@@ -53,12 +53,13 @@ const CreateAuthors = () => {
             <input type="text" value={name} onChange={(e) => setName(e.target.value)} id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Nome' />
           </div>
 
+          {/* botões */}
+
           {!isLoading && (
 
             <Check />
-          
-          )}
 
+          )}
 
           <Link to={'/authors'}>
             <Return />

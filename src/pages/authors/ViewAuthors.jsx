@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { getAuthor } from '../../requests/author';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { getAuthor, deleteAuthor } from '../../requests/author';
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 // componentes:
 import Card from '../../components/Card';
-import Return from '../../components/buttons/ReturnPurple'
-import Edit from '../../components/buttons/EditBlue'
-import Delete from '../../components/buttons/DeleteRed'
+import Return from '../../components/buttons/Return'
+import Edit from '../../components/buttons/Edit'
+import Delete from '../../components/buttons/Delete'
 
 
 const ViewAuthors = () => {
   const { id } = useParams();
+  const navigate = useNavigate()
   const [data, setData] = useState()
-
-
-
 
 
   useEffect(() => {
@@ -34,17 +32,27 @@ const ViewAuthors = () => {
   }, [id]);
 
 
+  const removeAuthor = async () => {
+    try {
+      const result = await deleteAuthor(id);
+      navigate('/authors')
+      toast.warn(`Autor ${data.name} removido com sucesso`)
+    } catch (error) {
+      console.error('Erro ao obter autor:', error);
+    }
+  };
 
-  console.log(data)
+
+  let cardName = 'Detalhes do Autor'
 
 
   return (
     <div>
 
-      <Card title={'Detalhes do Autor'}>
+      <Card title={cardName}>
 
         <div>
-          
+
           {!data || data.length === 0 ? (
 
             <h1>Autor não encontrado</h1>
@@ -53,12 +61,10 @@ const ViewAuthors = () => {
 
             <>
 
-
               <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={data.id}>
                 <li>ID: {data.id}</li>
                 <li>Nome: {data.name}</li>
               </ul>
-
 
               {/* botões: */}
 
@@ -73,11 +79,14 @@ const ViewAuthors = () => {
 
               </Link>
 
-              <Delete />
+              <span onClick={() => removeAuthor(data.id)}>
+                <Delete />
+              </span>
 
             </>
 
           )}
+
         </div>
 
       </Card>
