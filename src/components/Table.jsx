@@ -32,23 +32,25 @@ const Table = ({ titles, tableTitle, btnTitle, data }) => {
                     </thead>
                     <tbody>
 
-                        {data
-                            .sort((a, b) => a.name.localeCompare(b.name))
-                            .map((rowData) => (
-                                <tr key={rowData.id} className={`text-center odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700`}>
-                                    {Object.entries(rowData).map(([key, value], colIndex) => key !== 'id' && (
-                                        <td key={colIndex} className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {value}
-                                        </td>
-                                    ))}
-                                    <td className="px-6 py-4">
-                                        <Link to={`${rowData.id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                            <CustomPurple title={"Sobre"} />
-                                        </Link>
+                        {data.map((rowData) => (
+
+                            <tr key={rowData.id} className={`text-center odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700`}>
+
+                                {Object.entries(rowData).map(([key, value], colIndex) => key !== 'id' && (
+                                    <td key={colIndex} className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {value}
                                     </td>
-                                </tr>
-                            ))
-                        }
+                                ))}
+
+                                <td className="px-6 py-4">
+                                    <Link to={`${rowData.id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                        <CustomPurple title={"Sobre"} />
+                                    </Link>
+                                </td>
+
+                            </tr>
+
+                        ))}
 
 
                     </tbody>

@@ -1,35 +1,42 @@
-import { useState, useEffect } from "react";
-import Table from "../../components/Table";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { getAllBooks } from '../../requests/book';
+import Table from '../../components/Table';
 
-const books = () => {
-
-  const url = "http://localhost:3000/books"
-
-  const [books, setBooks] = useState();
-
-  const getBooks = async () => {
-    try {
-      const res = await axios.get(url)
-      setBooks(res.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+const Books = () => {
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    getBooks()
-  }, [])
+    const showBooks = async () => {
+      try {
+        const response = await getAllBooks();
+        setData(response);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
-  const title = ['Título', 'páginas', 'Quantidade', 'ID autor', 'ID estante']
+    showBooks();
+  }, []);
 
-  return (
+
+  const titles = ['Título', 'páginas', 'Quantidade', 'ID Autor', 'ID estante'];
+
+  
+  return (!data || data.length === 0 ? (
+
+    <h1 className='flex items-center justify-center h-screen flex-col px-6 py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white'>
+      Nenhum dado disponível.
+    </h1>
+
+  ) : (
+
     <div>
-
-      <Table data={books} titles={title} tableTitle={'Livros'} />
-
+      <Table data={data} titles={titles} tableTitle={'Livros'} btnTitle={'Novo Livro'} />
     </div>
-  )
-}
 
-export default books
+  )
+
+  );
+};
+
+export default Books;

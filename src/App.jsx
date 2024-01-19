@@ -12,9 +12,24 @@ import ViewAuthors from './pages/authors/ViewAuthors';
 import EditAuthors from './pages/authors/EditAuthors';
 
 import Books from './pages/books/Books';
+import CreateBooks from './pages/books/CreateBooks';
+import ViewBooks from './pages/books/ViewBooks';
+import EditBooks from './pages/books/EditBooks';
+
 import Bookshelves from './pages/bookshelves/Bookshelves';
+import CreateBookshelves from './pages/bookshelves/CreateBookshelves';
+import ViewBookshelves from './pages/bookshelves/ViewBookshelves';
+import EditBookshelves from './pages/bookshelves/EditBookshelves';
+
 import Rents from './pages/rents/Rents';
+import CreateRents from './pages/rents/CreateRents';
+import ViewRents from './pages/rents/ViewRents';
+import EditRents from './pages/rents/EditRents';
+
 import Customers from './pages/customers/Customers';
+import CreateCustomers from './pages/customers/CreateCustomers';
+import ViewCustomers from './pages/customers/ViewCustomers';
+import EditCustomers from './pages/customers/EditCustomers';
 
 
 // components
@@ -38,17 +53,31 @@ function App() {
           <Route path="/authors/create" element={<CreateAuthors />} />
           <Route path="/authors/:id/edit" element={<EditAuthors />} />
 
-          {/* <Route path="/books" element={<Books />} />
-        <Route path="/books/:id" element={<View />} />
+          {/* books */}
+          <Route path="/books" element={<Books />} />
+          <Route path="/books/:id" element={<ViewBooks />} />
+          <Route path="/books/create" element={<CreateBooks />} />
+          <Route path="/books/:id/edit" element={<EditBooks />} />
 
-        <Route path="/bookshelves" element={<Bookshelves />} />
-        <Route path="/bookshelves/:id" element={<View />} />
+          {/* bookshelves */}
+          <Route path="/bookshelves" element={<Bookshelves />} />
+          <Route path="/bookshelves/:id" element={<ViewBookshelves />} />
+          <Route path="/bookshelves/create" element={<CreateBookshelves />} />
+          <Route path="/bookshelves/:id/edit" element={<EditBookshelves />} />
 
-        <Route path="/customers" element={<Customers />} />
-        <Route path="/customers/:id" element={<View />} />
 
-        <Route path="/rents" element={<Rents />} />
-        <Route path="/rents/:id" element={<View />} /> */}
+          {/* customers */}
+          <Route path="/customers" element={<Customers />} />
+          <Route path="/customers/:id" element={<ViewCustomers />} />
+          <Route path="/customers/create" element={<CreateCustomers />} />
+          <Route path="/customers/:id/edit" element={<EditCustomers />} />
+
+          {/* Rents */}
+          <Route path="/rents" element={<Rents />} />
+          <Route path="/rents/:id" element={<ViewRents />} />
+          <Route path="/rents/create" element={<CreateRents />} />
+          <Route path="/rents/:id/edit" element={<EditRents />} />
+
 
         </Routes>
       </BrowserRouter>
@@ -65,7 +94,7 @@ function App() {
         draggable
         pauseOnHover
         theme="dark"
-        transition:Bounce/>
+        transition:Bounce />
     </>
   )
 }

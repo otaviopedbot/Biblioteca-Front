@@ -1,36 +1,41 @@
-import { useState, useEffect } from "react";
-import Table from "../../components/Table";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { getAllBookshelves } from '../../requests/bookshelve';
+import Table from '../../components/Table';
 
-const bookshelves = () => {
-
-  const url = "http://localhost:3000/bookshelves"
-
-  const [bookshelves, setBookshelvess] = useState();
-
-  const getBookshelves = async () => {
-    try {
-      const res = await axios.get(url)
-      setBookshelvess(res.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+const Bookshelves = () => {
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    getBookshelves()
-  }, [])
+    const showBookshelves = async () => {
+      try {
+        const response = await getAllBookshelves();
+        setData(response);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    showBookshelves();
+  }, []);
+
+  const titles = ['Nome'];
 
 
-  const title = ['Nome']
+  return (!data || data.length === 0 ? (
 
-  return (
+    <h1 className='flex items-center justify-center h-screen flex-col px-6 py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white'>
+      Nenhum dado disponível.
+    </h1>
+
+  ) : (
+
     <div>
-
-      <Table data={bookshelves} titles={title} tableTitle={'Estantes'} />
-
+      <Table data={data} titles={titles} tableTitle={'Estantes'} btnTitle={'Nova Estante'} />
     </div>
-  )
-}
 
-export default bookshelves
+  )
+
+  );
+};
+
+export default Bookshelves;
