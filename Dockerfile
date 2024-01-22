@@ -9,4 +9,6 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["npm", "start"]
+RUN chmod +x entrypoint.sh
+
+ENTRYPOINT ["./start.sh"]
