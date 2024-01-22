@@ -34,7 +34,7 @@ export const postBook = async (title, page, quantity, author_id, bookshelve_id) 
             'bookshelve_id': bookshelve_id
         });
     } catch (error) {
-        console.log("Error posting data:", error.response.data);
+        console.log("Error posting data:", error);
         throw new error;
     }
 };
