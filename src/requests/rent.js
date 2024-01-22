@@ -2,9 +2,9 @@ import axios from "axios";
 
 const url = import.meta.env.VITE_APIURL
 
-export const getAllAuthors = async () => {
+export const getAllRents = async () => {
     try {
-        const response = await axios.get(`${url}/authors`);
+        const response = await axios.get(`${url}/rents`);
         return response.data
     } catch (error) {
         console.log("Error geting data:", error.response.data);
@@ -13,9 +13,9 @@ export const getAllAuthors = async () => {
 };
 
 
-export const getAuthor = async (id) => {
+export const getRent = async (id) => {
     try {
-        const response = await axios.get(`${url}/authors/${id}`);
+        const response = await axios.get(`${url}/rents/${id}`);
         return response.data[0];
     } catch (error) {
         console.log('Error getting data:', error.response.data);
@@ -24,9 +24,13 @@ export const getAuthor = async (id) => {
 };
 
 
-export const postAuthor = async (name) => {
+export const postRent = async (date, customer_id, book_id) => {
     try {
-        await axios.post(`${url}/authors`, { 'name': name });
+        await axios.post(`${url}/rents`, { 
+            'date': date,
+            'customer_id': customer_id,
+            'book_id': book_id,
+        });
     } catch (error) {
         console.log("Error posting data:", error.response.data);
         throw new error;
@@ -34,9 +38,13 @@ export const postAuthor = async (name) => {
 };
 
 
-export const updateAuthor = async (id, name) => {
+export const updateRent = async (id, date, customer_id, book_id) => {
     try {
-        await axios.put(`${url}/authors/${id}`, { 'name': name });
+        await axios.put(`${url}/rents/${id}`, { 
+            'date': date,
+            'customer_id': customer_id,
+            'book_id': book_id,
+        });
     } catch (error) {
         console.log("Error updating data:", error.response.data);
         throw new error;
@@ -45,9 +53,9 @@ export const updateAuthor = async (id, name) => {
 }
 
 
-export const deleteAuthor = async (id) => {
+export const deleteRent = async (id) => {
     try {
-        await axios.delete(`${url}/authors/${id}`);
+        await axios.delete(`${url}/rents/${id}`);
     } catch (error) {
         console.log("Error deleting data:", error.response.data);
         throw new error;

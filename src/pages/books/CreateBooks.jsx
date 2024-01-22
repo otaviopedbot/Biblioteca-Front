@@ -38,7 +38,7 @@ const CreateBooks = () => {
       setIsLoading(false)
 
     } catch (error) {
-      toast.error('Erro ao cadastrar Livro');
+      toast.error(`Erro ao cadastrar Livro: ${error.message}`);
       console.log(error)
       setIsLoading(false)
     }

@@ -32,7 +32,7 @@ const CreateBookshelves = () => {
       setIsLoading(false)
 
     } catch (error) {
-      toast.error('Erro ao cadastrar Estante');
+      toast.error(`Erro ao cadastrar Estante: ${error.message}`);
       console.log(error)
       setIsLoading(false)
     }

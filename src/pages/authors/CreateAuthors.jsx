@@ -32,7 +32,7 @@ const CreateAuthors = () => {
       setIsLoading(false)
 
     } catch (error) {
-      toast.error('Erro ao cadastrar autor');
+      toast.error(`Erro ao cadastrar Autor: ${error.message}`);
       console.log(error)
       setIsLoading(false)
     }

@@ -7,8 +7,8 @@ export const getAllBooks = async () => {
         const response = await axios.get(`${url}/books`);
         return response.data
     } catch (error) {
-        console.log("Error geting data:", error);
-        throw error;
+        console.log("Error geting data:", error.response.data);
+       throw new error;
     }
 };
 
@@ -18,8 +18,8 @@ export const getBook = async (id) => {
         const response = await axios.get(`${url}/books/${id}`);
         return response.data[0];
     } catch (error) {
-        console.log('Erro ao obter autor:', error);
-        throw error;
+        console.log('Error getting data:', error.response.data);
+       throw new error;
     }
 };
 
@@ -34,7 +34,7 @@ export const postBook = async (title, page, quantity, author_id, bookshelve_id) 
             'bookshelve_id': bookshelve_id
         });
     } catch (error) {
-        console.log("Error posting data:", error);
+        console.log("Error posting data:", error.response.data);
         throw new error;
     }
 };
@@ -50,7 +50,7 @@ export const updateBook = async (id, title, page, quantity, author_id, bookshelv
             'bookshelve_id': bookshelve_id
         });
     } catch (error) {
-        console.log("Error updating data:", error);
+        console.log("Error updating data:", error.response.data);
         throw new error;
     }
 
@@ -61,7 +61,7 @@ export const deleteBook = async (id) => {
     try {
         await axios.delete(`${url}/books/${id}`);
     } catch (error) {
-        console.log("Error deleting data:", error);
+        console.log("Error deleting data:", error.response.data);
         throw new error;
     }
 

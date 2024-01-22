@@ -36,20 +36,17 @@ const ViewBooks = () => {
     try {
       const result = await deleteBook(id);
       navigate('/books')
-      toast.warn(`Livro ${data.title} removido com sucesso`)
+      toast.warn(`Livro de ID: ${data.id} removido com sucesso`)
     } catch (error) {
       console.error('Erro ao obter Livro:', error);
     }
   };
 
 
-  let cardName = 'Detalhes do Livro'
-
-
   return (
     <div>
 
-      <Card title={cardName}>
+      <Card title={'Detalhes do Livro'}>
 
         <div>
 

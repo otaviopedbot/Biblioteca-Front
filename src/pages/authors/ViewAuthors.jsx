@@ -36,20 +36,18 @@ const ViewAuthors = () => {
     try {
       const result = await deleteAuthor(id);
       navigate('/authors')
-      toast.warn(`Autor ${data.name} removido com sucesso`)
+      toast.warn(`Autor de ID: ${data.id} removido com sucesso`)
     } catch (error) {
       console.error('Erro ao obter autor:', error);
     }
   };
 
 
-  let cardName = 'Detalhes do Autor'
-
 
   return (
     <div>
 
-      <Card title={cardName}>
+      <Card title={'Detalhes do Autor'}>
 
         <div>
 

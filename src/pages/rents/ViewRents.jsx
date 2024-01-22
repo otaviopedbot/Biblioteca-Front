@@ -1,9 +1,98 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { getRent, deleteRent } from '../../requests/rent';
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'react-toastify';
+
+// componentes:
+import Card from '../../components/Card';
+import Return from '../../components/buttons/Return'
+import Edit from '../../components/buttons/Edit'
+import Delete from '../../components/buttons/Delete'
+
 
 const ViewRents = () => {
+  const { id } = useParams();
+  const navigate = useNavigate()
+  const [data, setData] = useState()
+
+
+  useEffect(() => {
+
+    const showRent = async () => {
+      try {
+        const result = await getRent(id);
+        setData(result);
+      } catch (error) {
+        console.error('Erro ao obter Aluguel:', error);
+      }
+    };
+
+    showRent();
+
+  }, [id]);
+
+
+  const removeRent = async () => {
+    try {
+      const result = await deleteRent(id);
+      navigate('/rents')
+      toast.warn(`Aluguel de ID: ${data.id} removido com sucesso`)
+    } catch (error) {
+      console.error('Erro ao obter Aluguel:', error);
+    }
+  };
+
+
+
   return (
-    <div>ViewRents</div>
-  )
+    <div>
+
+      <Card title={'Detalhes do Aluguel'}>
+
+        <div>
+
+          {!data || data.length === 0 ? (
+
+            <h1>Aluguel não encontrado</h1>
+
+          ) : (
+
+            <>
+
+              <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={data.id}>
+                <li>ID: {data.id}</li>
+                <li>Data: {data.date}</li>
+                <li>ID Cliente: {data.customer_id}</li>
+                <li>ID Livro: {data.book_id}</li>
+              </ul>
+
+              {/* botões: */}
+
+              <Link to={'edit'}>
+                <Edit />
+              </Link>
+
+
+              <Link to={'/rents'}>
+
+                <Return />
+
+              </Link>
+
+              <span onClick={() => removeRent(data.id)}>
+                <Delete />
+              </span>
+
+            </>
+
+          )}
+
+        </div>
+
+      </Card>
+
+    </div>
+  );
 }
 
-export default ViewRents
+export default ViewRents;
