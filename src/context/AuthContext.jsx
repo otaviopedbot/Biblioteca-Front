@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
         const { data: {token} } = await login(email, password)
 
         localStorage.setItem('token', json.stringify(token))
-        api.defaults.headers.Authorization = token;
+        api.defaults.headers.Authorization = `Bearer ${token}`;
         setAuthenticated(true);
     }
 
