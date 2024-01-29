@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { postBook } from '../../requests/book';
+import { Context } from '../../context/AuthContext';
 
 //componentes:
 import Card from '../../components/Card'
@@ -11,37 +12,40 @@ import CustomPurple from '../../components/buttons/CustomPurple';
 
 
 const Login = () => {
-
+  const {handleLogin} = useContext(Context)
+  
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const [isLoading, setIsLoading] = useState(false)
-  const navigate = useNavigate()
+  // const [isLoading, setIsLoading] = useState(false)
 
-  const saveBook = (e) => {
+  handleLogin(email, password)
 
-    e.preventDefault()
+  // const navigate = useNavigate()
 
-    if (email === '' || password === '') {
-      toast.warn('Preencha todos os campos corretamente')
-      return;
-    }
+  // const saveBook = (e) => {
 
-    try {
-      setIsLoading(true)
-      postBook(title, password, quantity, author_id, bookshelve_id)
-      toast.success(`Livro ${title} cadastrado com sucesso`);
-      navigate('/books')
-      setIsLoading(false)
+  //   e.preventDefault()
 
-    } catch (error) {
-      toast.error(`Erro ao cadastrar Livro: ${error.message}`);
-      console.log(error)
-      setIsLoading(false)
-    }
+  //   if (email === '' || password === '') {
+  //     toast.warn('Preencha todos os campos corretamente')
+  //     return;
+  //   }
 
-  }
+  //   try {
+  //     setIsLoading(true)
+  //     postBook(title, password, quantity, author_id, bookshelve_id)
+  //     toast.success(`Livro ${title} cadastrado com sucesso`);
+  //     navigate('/books')
+      //  setIsLoading(false)
 
+  //   } catch (error) {
+  //     toast.error(`Erro ao cadastrar Livro: ${error.message}`);
+  //     console.log(error)
+  //     setIsLoading(false)
+  //   }
+
+  // }
 
   return (
     <div>
@@ -49,7 +53,7 @@ const Login = () => {
       <Card title={'Login'}>
 
 
-        <form onSubmit={saveBook}>
+        <form onSubmit={handleLogin}>
 
           <div className='mb-2'>
             <label htmlFor="email" classemail="block mb-2 text-sm font-medium text-gray-900 dark:text-white">E-mail</label>
@@ -63,11 +67,11 @@ const Login = () => {
 
           {/* botões */}
 
-          {!isLoading && (
+          {/* {!isLoading && ( */}
 
             <Check />
 
-          )}
+          {/* )} */}
 
           <Link to={'/'}>
             <Return />
@@ -78,7 +82,6 @@ const Login = () => {
           <Link to={'/register'}>
             <CustomPurple title={'Registre-se'} />
           </Link>
-
 
         </form>
 
