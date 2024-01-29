@@ -4,7 +4,11 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // pages
+
 import Home from './pages/Home';
+
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
 
 import Authors from './pages/authors/Authors';
 import CreateAuthors from './pages/authors/CreateAuthors';
@@ -78,6 +82,10 @@ function App() {
           <Route path="/rents/create" element={<CreateRents />} />
           <Route path="/rents/:id/edit" element={<EditRents />} />
 
+          
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+
 
         </Routes>
       </BrowserRouter>
@@ -87,7 +95,7 @@ function App() {
         autoClose={3000}
         limit={3}
         hideProgressBar={false}
-        newestOnTop={false}
+        newestOnTop={true}
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
