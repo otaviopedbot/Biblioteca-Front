@@ -1,10 +1,11 @@
 import axios from "axios";
+import authHeader from "../services/auth-header";
 
 const url = import.meta.env.VITE_APIURL
 
 export const getAllAuthors = async () => {
     try {
-        const response = await axios.get(`${url}/authors`);
+        const response = await axios.get(`${url}/authors`, { headers: authHeader() });
         return response.data
     } catch (error) {
         console.log("Error geting data:", error.response.data);

@@ -7,8 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import Home from './pages/Home';
 
-import Login from './pages/users/Login';
-import Register from './pages/users/Register';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 import Authors from './pages/authors/Authors';
 import CreateAuthors from './pages/authors/CreateAuthors';
@@ -45,64 +45,64 @@ function App() {
 
   return (
     <>
-        <BrowserRouter>
-          <Navbar />
-          <Routes>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
 
-            <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
 
-            {/* authors */}
-            <Route path="/authors" element={<Authors />} />
-            <Route path="/authors/:id" element={<ViewAuthors />} />
-            <Route path="/authors/create" element={<CreateAuthors />} />
-            <Route path="/authors/:id/edit" element={<EditAuthors />} />
+          {/* authors */}
+          <Route path="/authors" element={<Authors />} />
+          <Route path="/authors/:id" element={<ViewAuthors />} />
+          <Route path="/authors/create" element={<CreateAuthors />} />
+          <Route path="/authors/:id/edit" element={<EditAuthors />} />
 
-            {/* books */}
-            <Route path="/books" element={<Books />} />
-            <Route path="/books/:id" element={<ViewBooks />} />
-            <Route path="/books/create" element={<CreateBooks />} />
-            <Route path="/books/:id/edit" element={<EditBooks />} />
+          {/* books */}
+          <Route path="/books" element={<Books />} />
+          <Route path="/books/:id" element={<ViewBooks />} />
+          <Route path="/books/create" element={<CreateBooks />} />
+          <Route path="/books/:id/edit" element={<EditBooks />} />
 
-            {/* bookshelves */}
-            <Route path="/bookshelves" element={<Bookshelves />} />
-            <Route path="/bookshelves/:id" element={<ViewBookshelves />} />
-            <Route path="/bookshelves/create" element={<CreateBookshelves />} />
-            <Route path="/bookshelves/:id/edit" element={<EditBookshelves />} />
-
-
-            {/* customers */}
-            <Route path="/customers" element={<Customers />} />
-            <Route path="/customers/:id" element={<ViewCustomers />} />
-            <Route path="/customers/create" element={<CreateCustomers />} />
-            <Route path="/customers/:id/edit" element={<EditCustomers />} />
-
-            {/* Rents */}
-            <Route path="/rents" element={<Rents />} />
-            <Route path="/rents/:id" element={<ViewRents />} />
-            <Route path="/rents/create" element={<CreateRents />} />
-            <Route path="/rents/:id/edit" element={<EditRents />} />
+          {/* bookshelves */}
+          <Route path="/bookshelves" element={<Bookshelves />} />
+          <Route path="/bookshelves/:id" element={<ViewBookshelves />} />
+          <Route path="/bookshelves/create" element={<CreateBookshelves />} />
+          <Route path="/bookshelves/:id/edit" element={<EditBookshelves />} />
 
 
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+          {/* customers */}
+          <Route path="/customers" element={<Customers />} />
+          <Route path="/customers/:id" element={<ViewCustomers />} />
+          <Route path="/customers/create" element={<CreateCustomers />} />
+          <Route path="/customers/:id/edit" element={<EditCustomers />} />
+
+          {/* Rents */}
+          <Route path="/rents" element={<Rents />} />
+          <Route path="/rents/:id" element={<ViewRents />} />
+          <Route path="/rents/create" element={<CreateRents />} />
+          <Route path="/rents/:id/edit" element={<EditRents />} />
 
 
-          </Routes>
-        </BrowserRouter>
-        <Footer />
-        <ToastContainer
-          position="top-right"
-          autoClose={3000}
-          limit={3}
-          hideProgressBar={false}
-          newestOnTop={true}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-          transition:Bounce />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+
+
+        </Routes>
+      </BrowserRouter>
+      <Footer />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        limit={3}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition:Bounce />
     </>
   )
 }

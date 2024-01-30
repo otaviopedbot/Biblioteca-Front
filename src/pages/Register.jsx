@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { postUser } from '../../requests/user';
+import AuthService from "../services/authService"
 
 //componentes:
-import Card from '../../components/Card'
-import Check from '../../components/buttons/Check'
-import Return from '../../components/buttons/Return'
+import Card from '../components/Card'
+import Check from '../components/buttons/Check'
+import Return from '../components/buttons/Return'
 import { toast } from 'react-toastify';
 
 
@@ -18,9 +18,8 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
-  const saveUser = (e) => {
-
-    e.preventDefault()
+  const handleRegister = async (e) => {
+    e.preventDefault();
 
     if (username === '' || email === '' || password === '') {
       toast.warn('Preencha todos os campos corretamente')
@@ -28,30 +27,33 @@ const Login = () => {
     }
 
     try {
-      setIsLoading(true)
-      postUser(email, password)
-      toast.success(`Usuário ${username} cadastrado com sucesso`);
-      navigate('/')
-      setIsLoading(false)
-
-    } catch (error) {
-      toast.error(`Erro ao cadastrar Usuário: ${error.message}`);
-      console.log(error)
-      setIsLoading(false)
+      await AuthService.Register(username, email, password).then(
+        () => {
+          setIsLoading(true)
+          toast.success(`Usuário ${username} cadastrado com sucesso`);
+          navigate('/login')
+          setIsLoading(false)
+        },
+        (error) => {
+          toast.error(`Erro ao cadastrar Usuário: ${error.response.data.message}`);
+          console.log(error)
+          setIsLoading(false)
+        }
+      );
+    } catch (err) {
+      console.log(err);
     }
-
-  }
-
+  };
 
   return (
     <div>
 
-      <Card title={'Register'}>
+      <Card title={'Cadastro'}>
 
 
-        <form onSubmit={saveUser}>
+        <form onSubmit={handleRegister}>
 
-        <div className='mb-2'>
+          <div className='mb-2'>
             <label htmlFor="email" classemail="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
             <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} id="username" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Username' />
           </div>
