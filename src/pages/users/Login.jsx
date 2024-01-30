@@ -1,5 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { postBook } from '../../requests/book';
+import { Context } from '../../context/AuthContext';
 
 //componentes:
 import Card from '../../components/Card'
