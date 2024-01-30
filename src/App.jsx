@@ -2,7 +2,6 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { AuthProvider } from './context/AuthContext';
 
 // pages
 
@@ -46,7 +45,6 @@ function App() {
 
   return (
     <>
-      <AuthProvider>
         <BrowserRouter>
           <Navbar />
           <Routes>
@@ -105,7 +103,6 @@ function App() {
           pauseOnHover
           theme="dark"
           transition:Bounce />
-      </AuthProvider>
     </>
   )
 }
