@@ -7,7 +7,7 @@ const Table = ({ titles, tableTitle, btnTitle, data }) => {
 
     return (
         <div className="flex items-center justify-center mt-20 mb-20">
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-1/2">
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-1/2 mt-20">
                 <table className="w-full overflow-x-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <caption className="p-5 text-lg font-semibold text-center rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
  

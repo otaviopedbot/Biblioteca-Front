@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getAuthor, updateAuthor } from '../../requests/author';
+import AuthService from "../../services/authService"
+import { toast } from 'react-toastify';
+
 
 //componentes:
 import Card from '../../components/Card'
 import Check from '../../components/buttons/Check'
+import ErrorScreen from '../../components/ErrorScreen'
 import Return from '../../components/buttons/Return'
-import { toast } from 'react-toastify';
 
 
 const EditAuthors = () => {
 
-
+  const user = AuthService.getCurrentUser();
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
@@ -30,7 +33,7 @@ const EditAuthors = () => {
           name: data.name
         });
       } catch (error) {
-        console.error('Erro ao obter autor:', error);
+        toast.error(error.response.data.message);
       }
     };
 
@@ -46,49 +49,54 @@ const EditAuthors = () => {
     try {
       setIsLoading(true);
       updateAuthor(id, author.name)
-      toast.success('Autor editado com sucesso');
+      toast.success(`Autor ${author.name} editado com sucesso`);
       setIsLoading(false);
       navigate('/authors/' + id);
     } catch (error) {
-      toast.error('Erro ao editar autor');
-      console.error(error);
+      toast.error(error.response.data.message);
       setIsLoading(false);
     }
   };
 
-  
+
   return (
     <div>
 
-      <Card title={'Editar Autor'}>
+      {!author.name || user.user.is_admin == 0 ? (
+
+        <ErrorScreen message={'Autor não encontrado'} />
+
+      ) : (
+
+        <Card title={'Editar Autor'}>
+
+          <form onSubmit={editAuthor}>
 
 
-        <form onSubmit={editAuthor}>
+            <div>
+              <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
+              <input type="text" value={author.name} onChange={(e) => setAuthor({ ...author, name: e.target.value })} id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Nome' />
+            </div>
 
+            {/* botões */}
 
-          <div>
-            <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
-            <input type="text" value={author.name} onChange={(e) => setAuthor({ ...author, name: e.target.value })} id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Nome' />
-          </div>
+            {!isLoading && (
 
-          {/* botões */}
+              <Check />
 
-          {!isLoading && (
+            )}
 
-            <Check />
+            <Link to={'/authors/' + id}>
+              <Return />
+            </Link>
 
-          )}
+          </form>
 
-          <Link to={'/authors/' + id}>
-            <Return />
-          </Link>
+        </Card>
 
-        </form>
+      )}
 
-
-      </Card>
-
-    </div>
+    </div >
   )
 }
 

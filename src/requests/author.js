@@ -1,5 +1,6 @@
 import axios from "axios";
-import authHeader from "../services/auth-header";
+import authHeader from "../services/authHeader";
+import authHeaderAdmin from "../services/authHeaderAdmin";
 
 const url = import.meta.env.VITE_APIURL
 
@@ -8,50 +9,42 @@ export const getAllAuthors = async () => {
         const response = await axios.get(`${url}/authors`, { headers: authHeader() });
         return response.data
     } catch (error) {
-        console.log("Error geting data:", error.response.data);
-        throw new error;
+        console.log(error)
+        throw error;
     }
 };
-
 
 export const getAuthor = async (id) => {
     try {
-        const response = await axios.get(`${url}/authors/${id}`);
+        const response = await axios.get(`${url}/authors/${id}`, { headers: authHeader() });
         return response.data[0];
     } catch (error) {
-        console.log('Error getting data:', error.response.data);
-        throw new error;
+        throw error;
     }
 };
-
 
 export const postAuthor = async (name) => {
     try {
-        await axios.post(`${url}/authors`, { 'name': name });
+        await axios.post(`${url}/authors`, { headers: authHeaderAdmin() }, { 'name': name });
     } catch (error) {
-        console.log("Error posting data:", error.response.data);
-        throw new error;
+        throw error;
     }
 };
 
-
 export const updateAuthor = async (id, name) => {
     try {
-        await axios.put(`${url}/authors/${id}`, { 'name': name });
+        await axios.put(`${url}/authors/${id}`, { headers: authHeaderAdmin() }, { 'name': name });
     } catch (error) {
-        console.log("Error updating data:", error.response.data);
-        throw new error;
+        throw error;
     }
 
 }
 
-
 export const deleteAuthor = async (id) => {
     try {
-        await axios.delete(`${url}/authors/${id}`);
+        await axios.delete(`${url}/authors/${id}`, { headers: authHeaderAdmin() });
     } catch (error) {
-        console.log("Error deleting data:", error.response.data);
-        throw new error;
+        throw error;
     }
 
 }
