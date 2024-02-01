@@ -3,6 +3,7 @@ import { getAuthor, deleteAuthor } from '../../requests/author';
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import AuthService from "../../services/authService"
+import Swal from "sweetalert2";
 
 // componentes:
 import Card from '../../components/Card';
@@ -24,7 +25,6 @@ const ViewAuthors = () => {
     const showAuthor = async () => {
       try {
         const result = await getAuthor(id);
-        console.log(user.user.is_admin)
         setData(result);
       } catch (error) {
         toast.error(error.response.data.message);
@@ -37,13 +37,27 @@ const ViewAuthors = () => {
 
 
   const removeAuthor = async () => {
-    try {
-      await deleteAuthor(id);
-      navigate('/authors')
-      toast.warn(`Autor ${data.name} removido com sucesso`)
-    } catch (error) {
-      toast.error(error.response.data.message);
+    const confirmation = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    });
+  
+    if (confirmation.isConfirmed) {
+      try {
+        await deleteAuthor(id);
+        navigate('/authors');
+        toast.success(`Autor ${data.name} removido com sucesso`);
+      } catch (error) {
+        toast.error(`Erro ao remover autor`);
+        console.log(error)
+      }
     }
+
   };
 
 

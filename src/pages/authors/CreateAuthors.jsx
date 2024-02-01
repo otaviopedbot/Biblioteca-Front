@@ -15,29 +15,27 @@ const CreateAuthors = () => {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
-  const saveAuthor = (e) => {
 
-    e.preventDefault()
-
+  const saveAuthor = async (e) => {
+    e.preventDefault();
+  
     if (name === "") {
-      toast.warn('Preencha todos os campos corretamente')
+      toast.warn('Preencha todos os campos corretamente');
       return;
     }
-
+  
     try {
-      setIsLoading(true)
-      postAuthor(name)
+      setIsLoading(true);
+      await postAuthor(name);
       toast.success(`Autor ${name} cadastrado com sucesso`);
-      navigate('/authors')
-      setIsLoading(false)
-
+      navigate('/authors');
     } catch (error) {
-      toast.error(`Erro ao cadastrar Autor: ${error.message}`);
-      console.log(error)
-      setIsLoading(false)
+      toast.error(`Erro ao cadastrar Autor: ${error.response.data.message}`);
+    } finally {
+      setIsLoading(false);
     }
-
-  }
+  };
+  
 
 
   return (

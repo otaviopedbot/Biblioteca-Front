@@ -25,19 +25,19 @@ export const getAuthor = async (id) => {
 
 export const postAuthor = async (name) => {
     try {
-        await axios.post(`${url}/authors`, { headers: authHeaderAdmin() }, { 'name': name });
+        await axios.post(`${url}/authors`, { 'name': name }, { headers: authHeaderAdmin() });
     } catch (error) {
+        console.log(error)
         throw error;
     }
 };
 
 export const updateAuthor = async (id, name) => {
     try {
-        await axios.put(`${url}/authors/${id}`, { headers: authHeaderAdmin() }, { 'name': name });
+        await axios.put(`${url}/authors/${id}`, { 'name': name }, { headers: authHeaderAdmin() });
     } catch (error) {
         throw error;
     }
-
 }
 
 export const deleteAuthor = async (id) => {
@@ -46,5 +46,4 @@ export const deleteAuthor = async (id) => {
     } catch (error) {
         throw error;
     }
-
 }

@@ -10,6 +10,8 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 
+import Profile from './pages/users/Profile';
+
 import Authors from './pages/authors/Authors';
 import CreateAuthors from './pages/authors/CreateAuthors';
 import ViewAuthors from './pages/authors/ViewAuthors';
@@ -82,9 +84,12 @@ function App() {
           <Route path="/rents/create" element={<CreateRents />} />
           <Route path="/rents/:id/edit" element={<EditRents />} />
 
-
+          {/* Auth */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
+          {/* user */}
+          <Route path="/:username" element={<Profile />} />
 
 
         </Routes>

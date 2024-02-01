@@ -48,12 +48,12 @@ const EditAuthors = () => {
 
     try {
       setIsLoading(true);
-      updateAuthor(id, author.name)
-      toast.success(`Autor ${author.name} editado com sucesso`);
-      setIsLoading(false);
-      navigate('/authors/' + id);
+      await updateAuthor(id, author.name)
+      toast.success(`Autor ${author.name} atualizado com sucesso`);
+      navigate('/authors');
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(`Erro ao atualizar Autor: ${error.response.data.message}`);
+    } finally {
       setIsLoading(false);
     }
   };
@@ -62,7 +62,7 @@ const EditAuthors = () => {
   return (
     <div>
 
-      {!author.name || user.user.is_admin == 0 ? (
+      {!author || user.user.is_admin == 0 ? (
 
         <ErrorScreen message={'Autor não encontrado'} />
 
