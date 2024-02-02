@@ -2,18 +2,6 @@ import axios from "axios";
 
 const url = import.meta.env.VITE_APIURL
 
-export const login = async (email, password) => {
-    try {
-        await axios.post(`${url}/users/login`, { 
-            'email': email,
-            'password': password,
-        });
-    } catch (error) {
-        console.log("Error posting data:", error);
-        throw new error;
-    }
-};
-
 export const getAllUsers = async () => {
     try {
         const response = await axios.get(`${url}/users`);
@@ -58,7 +46,6 @@ export const updateUser = async (id, username, email, password) => {
         console.log("Error updating data:", error.response.data);
         throw new error;
     }
-
 }
 
 export const deleteUser = async (id) => {

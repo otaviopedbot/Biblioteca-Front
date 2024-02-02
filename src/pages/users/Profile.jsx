@@ -14,6 +14,10 @@ const Profile = () => {
 
     <Card title={`Perfil de ${user.user.username}`}>
 
+      <img src={user.user.image}></img>
+
+      <h2>{user.user.details}</h2>
+
       <ul className='className="max-w-md space-y-1 text-white-500 list-disc list-inside dark:text-gray-400"'>
         <li>ID: {user.user.id}</li>
         <li>Nome de usuário: {user.user.username}</li>
