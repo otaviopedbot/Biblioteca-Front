@@ -4,7 +4,7 @@ const API_URL = import.meta.env.VITE_APIURL;
 
 const Register = (username, email, password) => {
   return axios
-    .post(API_URL + "/users/register", {
+    .post(`${API_URL}/users/register`, {
       username,
       email,
       password,
@@ -20,7 +20,7 @@ const Register = (username, email, password) => {
 
 const Login = (email, password) => {
   return axios
-    .post(API_URL + "/users/login", {
+    .post(`${API_URL}/users/login`, {
       email,
       password,
     })
