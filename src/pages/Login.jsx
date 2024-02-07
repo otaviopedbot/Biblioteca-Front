@@ -50,7 +50,6 @@ const Login = () => {
     }
   };
 
-
   return (
     <div>
       <Card title={'Login'}>

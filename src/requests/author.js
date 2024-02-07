@@ -17,7 +17,7 @@ export const getAllAuthors = async () => {
 export const getAuthor = async (id) => {
     try {
         const response = await axios.get(`${url}/authors/${id}`, { headers: authHeader() });
-        return response.data[0];
+        return response.data;
     } catch (error) {
         throw error;
     }

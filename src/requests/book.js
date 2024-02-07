@@ -12,7 +12,6 @@ export const getAllBooks = async () => {
     }
 };
 
-
 export const getBook = async (id) => {
     try {
         const response = await axios.get(`${url}/books/${id}`);
@@ -22,7 +21,6 @@ export const getBook = async (id) => {
        throw new error;
     }
 };
-
 
 export const postBook = async (title, page, quantity, author_id, bookshelve_id) => {
     try {
@@ -39,7 +37,6 @@ export const postBook = async (title, page, quantity, author_id, bookshelve_id) 
     }
 };
 
-
 export const updateBook = async (id, title, page, quantity, author_id, bookshelve_id) => {
     try {
         await axios.put(`${url}/books/${id}`, { 
@@ -55,7 +52,6 @@ export const updateBook = async (id, title, page, quantity, author_id, bookshelv
     }
 
 }
-
 
 export const deleteBook = async (id) => {
     try {
