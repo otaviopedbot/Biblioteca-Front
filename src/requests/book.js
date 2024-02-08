@@ -15,7 +15,7 @@ export const getAllBooks = async () => {
 export const getBook = async (id) => {
     try {
         const response = await axios.get(`${url}/books/${id}`);
-        return response.data[0];
+        return response.data;
     } catch (error) {
         console.log('Error getting data:', error.response.data);
        throw new error;

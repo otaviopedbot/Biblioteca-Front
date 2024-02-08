@@ -18,10 +18,10 @@ const Rents = () => {
     showRents();
   }, []);
 
+  const titles = ['Data', 'ID Livro','Título Livro','ID Cliente','Nome Cliente'];
 
-  const titles = ['Data', 'ID Autor', 'ID Livro'];
+  console.log(data)
 
-  
   return (!data || data.length === 0 ? (
 
     <h1 className='flex items-center justify-center h-screen flex-col px-6 py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white'>

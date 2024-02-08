@@ -44,9 +44,9 @@ export const updateFavorite = async (id, username, email, password, image, detai
     }
 }
 
-export const deleteFavorite = async (id) => {
+export const deleteFavorite = async (userId, id) => {
     try {
-        await axios.delete(`${url}/users/${id}`, { headers: authHeader() });
+        await axios.delete(`${url}/users/${userId}/favorites/${id}`, { headers: authHeader() });
     } catch (error) {
         console.log("Error deleting data:", error.response.data);
         throw error;

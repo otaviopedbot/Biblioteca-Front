@@ -26,7 +26,6 @@ const ViewBooks = () => {
         console.error('Erro ao obter Livro:', error);
       }
     };
-
     showBook();
 
   }, [id]);
@@ -42,7 +41,7 @@ const ViewBooks = () => {
     }
   };
 
-
+  
   return (
     <div>
 

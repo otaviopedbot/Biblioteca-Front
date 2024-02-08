@@ -4,10 +4,12 @@ import Card from '../../components/Card';
 import { Link, useParams } from 'react-router-dom';
 import Return from '../../components/buttons/Return';
 import ErrorScreen from '../../components/ErrorScreen';
+import { getFavorite } from '../../requests/favorite';
 
 const Users = () => {
   const { username } = useParams();
   const [user, setUser] = useState(null);
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -23,6 +25,19 @@ const Users = () => {
     fetchUser();
   }, [username]);
 
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        const favoritesData = await getFavorite(user.id);
+        setFavorites(favoritesData);
+      } catch (error) {
+        console.error('Erro ao obter favoritos:', error);
+      }
+    };
+    fetchFavorites();
+  }, [user]);
+
+
   return user ? (
     <Card title={`${user.username}`}>
 
@@ -30,15 +45,18 @@ const Users = () => {
 
       <h2>{user.details}</h2>
 
-      {/* <ul className='className="max-w-md space-y-1 text-white-500 list-disc list-inside dark:text-gray-400"'>
-        <li>ID: {user.user.id}</li>
-        <li>Nome de usuário: {user.user.username}</li>
-        <li>E-mail: {user.user.email}</li>
-        <li>Permissões: Administrador: {user.user.is_admin}</li>
-      </ul> */}
+      <h2>Meus livros favoritos:</h2>
+      <ul>
+        {favorites.map((favorite) => (
+          <li key={favorite.favorite_id} className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
 
-      {/* botões */}
+            <Link to={`/books/${favorite.book.id}`}>
+              {favorite.book.title}
+            </Link>
 
+          </li>
+        ))}
+      </ul>
 
       <Link to={'/'}>
 

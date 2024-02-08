@@ -16,7 +16,7 @@ export const getAllRents = async () => {
 export const getRent = async (id) => {
     try {
         const response = await axios.get(`${url}/rents/${id}`);
-        return response.data[0];
+        return response.data;
     } catch (error) {
         console.log('Error getting data:', error.response.data);
         throw new error;

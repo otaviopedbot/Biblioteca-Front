@@ -94,6 +94,7 @@ function App() {
           {/* user */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
+          {/* admin */}
           <Route path="/profile/dashboard" element={<Dashboard />} />
 
           {/* user search */}

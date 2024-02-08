@@ -16,7 +16,7 @@ export const getAllBookshelves = async () => {
 export const getBookshelve = async (id) => {
     try {
         const response = await axios.get(`${url}/bookshelves/${id}`);
-        return response.data[0];
+        return response.data;
     } catch (error) {
         console.log('Error geting data:', error.response.data);
         throw new error;

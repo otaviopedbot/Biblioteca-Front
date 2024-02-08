@@ -16,7 +16,7 @@ export const getAllCustomers = async () => {
 export const getCustomer = async (id) => {
     try {
         const response = await axios.get(`${url}/customers/${id}`);
-        return response.data[0];
+        return response.data;
     } catch (error) {
         console.log('Error getting data:', error.response.data);
         throw new error;
