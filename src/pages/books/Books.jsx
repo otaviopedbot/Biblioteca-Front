@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { getAllBooks } from '../../requests/book';
+import { toast } from 'react-toastify';
+
+//componentes:
 import Table from '../../components/Table';
+import ErrorScreen from '../../components/ErrorScreen'
 
 const Books = () => {
   const [data, setData] = useState(null);
@@ -11,22 +15,18 @@ const Books = () => {
         const response = await getAllBooks();
         setData(response);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        toast.error(error.response.data.message)
       }
     };
 
     showBooks();
   }, []);
 
-
   const titles = ['Título', 'páginas', 'Quantidade', 'ID Autor', 'ID estante'];
-
   
   return (!data || data.length === 0 ? (
 
-    <h1 className='flex items-center justify-center h-screen flex-col px-6 py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white'>
-      Nenhum dado disponível.
-    </h1>
+    <ErrorScreen message={'Livros não encontrados'} />
 
   ) : (
 

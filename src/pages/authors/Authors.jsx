@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getAllAuthors } from '../../requests/author';
 import { toast } from 'react-toastify';
+
+//componentes:
 import Table from '../../components/Table';
 import ErrorScreen from '../../components/ErrorScreen'
 
@@ -21,7 +23,6 @@ const Authors = () => {
   }, []);
 
   const titles = ['Nome'];
-
 
   return (!data || data.length === 0 ? (
 

@@ -73,9 +73,9 @@ const Profile = () => {
               Apagar
             </button>
 
-            <Link className='ml-2 text-blue-500' to={`/profile/favorites/${favorite.favorite_id}`}>
+            {/* <Link className='ml-2 text-blue-500' to={`/profile/favorites/${favorite.favorite_id}`}>
               Editar
-            </Link>
+            </Link> */}
 
           </li>
         ))}

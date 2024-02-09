@@ -2,19 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { getBook, deleteBook } from '../../requests/book';
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify';
+import AuthService from "../../services/authService"
+import Swal from "sweetalert2";
 
 // componentes:
 import Card from '../../components/Card';
 import Return from '../../components/buttons/Return'
 import Edit from '../../components/buttons/Edit'
 import Delete from '../../components/buttons/Delete'
+import ErrorScreen from '../../components/ErrorScreen'
 
 
 const ViewBooks = () => {
   const { id } = useParams();
   const navigate = useNavigate()
   const [data, setData] = useState()
-
+  const user = AuthService.getCurrentUser();
+  const configConfirmation = {
+    title: "Tem certeza?",
+    text: "Não é possivel reverter esta ação!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sim, deletar!"
+  }
 
   useEffect(() => {
 
@@ -23,7 +35,7 @@ const ViewBooks = () => {
         const result = await getBook(id);
         setData(result);
       } catch (error) {
-        console.error('Erro ao obter Livro:', error);
+        toast.error(error.response.data.message);
       }
     };
     showBook();
@@ -32,66 +44,66 @@ const ViewBooks = () => {
 
 
   const removeBook = async () => {
-    try {
-      const result = await deleteBook(id);
-      navigate('/books')
-      toast.warn(`Livro de ID: ${data.id} removido com sucesso`)
-    } catch (error) {
-      console.error('Erro ao obter Livro:', error);
+    const confirmation = await Swal.fire(configConfirmation);
+
+    if (confirmation.isConfirmed) {
+      try {
+        await deleteBook(id);
+        navigate('/books')
+        toast.success(`Livro de ID: ${data.title} removido com sucesso`)
+      } catch (error) {
+        console.error('Erro ao remover livro');
+        console.log(error)
+      }
     }
+
   };
 
-  
+
   return (
     <div>
 
-      <Card title={'Detalhes do Livro'}>
+      {!data || data.length === 0 ? (
 
-        <div>
+        <ErrorScreen message={'Autor não encontrado'} />
 
-          {!data || data.length === 0 ? (
+      ) : (
 
-            <h1>Livro não encontrado</h1>
+        <Card title={'Detalhes do Livro'}>
 
-          ) : (
+          <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={data.id}>
+            <li>ID: {data.id}</li>
+            <li>Título: {data.title}</li>
+            <li>Paginas: {data.page}</li>
+            <li>Quantidade: {data.quantity}</li>
+            <li>ID do Autor: {data.author_id}</li>
+            <li>ID da Estante: {data.bookshelve_id}</li>
+          </ul>
 
-            <>
+          {/* botões: */}
 
-              <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={data.id}>
-                <li>ID: {data.id}</li>
-                <li>Título: {data.title}</li>
-                <li>Paginas: {data.page}</li>
-                <li>Quantidade: {data.quantity}</li>
-                <li>ID do Autor: {data.author_id}</li>
-                <li>ID da Estante: {data.bookshelve_id}</li>
-              </ul>
+          <Link to={'edit'}>
+            <Edit />
+          </Link>
 
-              {/* botões: */}
+          <Link to={'/Books'}>
 
-              <Link to={'edit'}>
-                <Edit />
-              </Link>
+            <Return />
 
+          </Link>
 
-              <Link to={'/Books'}>
-
-                <Return />
-
-              </Link>
-
-              <span onClick={() => removeBook(data.id)}>
-                <Delete />
-              </span>
-
-            </>
-
+          {user.user.is_admin == 1 && (
+            <span onClick={() => removeBook(data.id)}>
+              <Delete />
+            </span>
           )}
 
-        </div>
+        </Card>
 
-      </Card>
+      )}
 
-    </div>
+    </div >
+
   );
 }
 

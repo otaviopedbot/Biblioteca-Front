@@ -5,12 +5,12 @@ import { toast } from 'react-toastify';
 import AuthService from "../../services/authService"
 import Swal from "sweetalert2";
 
-// componentes:
+//componentes:
 import Card from '../../components/Card';
 import Return from '../../components/buttons/Return'
 import Edit from '../../components/buttons/Edit'
 import Delete from '../../components/buttons/Delete'
-import ErrorScreen from '../../components/ErrorScreen'
+import ValidateUser from '../../components/validation/ValidateUser';
 
 
 const ViewAuthors = () => {
@@ -18,7 +18,15 @@ const ViewAuthors = () => {
   const navigate = useNavigate()
   const [data, setData] = useState()
   const user = AuthService.getCurrentUser();
-
+  const configConfirmation = {
+    title: "Tem certeza?",
+    text: "Não é possivel reverter esta ação!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sim, deletar!"
+  }
 
   useEffect(() => {
 
@@ -30,23 +38,14 @@ const ViewAuthors = () => {
         toast.error(error.response.data.message);
       }
     };
-
     showAuthor();
 
   }, [id]);
 
 
   const removeAuthor = async () => {
-    const confirmation = await Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
-    });
-  
+    const confirmation = await Swal.fire(configConfirmation);
+
     if (confirmation.isConfirmed) {
       try {
         await deleteAuthor(id);
@@ -62,46 +61,39 @@ const ViewAuthors = () => {
 
 
   return (
-    <div>
 
-      {!data || data.length === 0 ? (
+    <ValidateUser>
 
-        <ErrorScreen message={'Autor não encontrado'} />
+      <Card title={'Detalhes do Autor'}>
 
-      ) : (
+        <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={data.id}>
+          <li>ID: {data.id}</li>
+          <li>Nome: {data.name}</li>
+        </ul>
 
-        <Card title={'Detalhes do Autor'}>
+        {/* botões: */}
 
-          <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={data.id}>
-            <li>ID: {data.id}</li>
-            <li>Nome: {data.name}</li>
-          </ul>
-
-          {/* botões: */}
-
-          {user.user.is_admin == 1 && (
-            <Link to={'edit'}>
-              <Edit />
-            </Link>
-          )}
-
-          <Link to={'/authors'}>
-
-            <Return />
-
+        {user.user.is_admin == 1 && (
+          <Link to={'edit'}>
+            <Edit />
           </Link>
+        )}
 
-          {user.user.is_admin == 1 && (
-            <span onClick={() => removeAuthor(data.id)}>
-              <Delete />
-            </span>
-          )}
+        <Link to={'/authors'}>
 
-        </Card>
+          <Return />
 
-      )}
+        </Link>
 
-    </div>
+        {user.user.is_admin == 1 && (
+          <span onClick={() => removeAuthor(data.id)}>
+            <Delete />
+          </span>
+        )}
+
+      </Card>
+
+    </ValidateUser>
   );
 }
 
