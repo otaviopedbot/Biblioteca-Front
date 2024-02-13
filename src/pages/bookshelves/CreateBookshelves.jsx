@@ -8,7 +8,7 @@ import Card from '../../components/Card'
 import Check from '../../components/buttons/Check'
 import Return from '../../components/buttons/Return'
 import InputField from '../../components/InputField';
-import ValidateUser from '../../components/validation/ValidateUser';
+import ValidateAdmin from '../../components/validation/ValidateAdmin';
 
 
 const CreateBookshelves = () => {
@@ -43,7 +43,7 @@ const CreateBookshelves = () => {
 
   return (
 
-    <ValidateUser>
+    <ValidateAdmin>
 
       <Card title={'Nova Estante'}>
 
@@ -67,7 +67,7 @@ const CreateBookshelves = () => {
 
       </Card>
 
-    </ValidateUser>
+    </ValidateAdmin>
 
   )
 }

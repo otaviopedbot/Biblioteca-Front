@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 //componentes:
 import Table from '../../components/Table';
-import ErrorScreen from '../../components/ErrorScreen'
+import ValidateData from '../../components/validation/ValidateData';
 
 const Bookshelves = () => {
   const [data, setData] = useState(null);
@@ -24,17 +24,15 @@ const Bookshelves = () => {
 
   const titles = ['Nome'];
 
-  return (!data || data.length === 0 ? (
+  return (
 
-    <ErrorScreen message={'Estantes não encontradas'} />
+    <ValidateData data={data} message={'Não foi possivel obter Estantes'}>
 
-  ) : (
+      <div>
+        <Table data={data} titles={titles} tableTitle={'Estantes'} btnTitle={'Nova Estante'} />
+      </div>
 
-    <div>
-      <Table data={data} titles={titles} tableTitle={'Estantes'} btnTitle={'Nova Estante'} />
-    </div>
-
-  )
+    </ValidateData>
 
   );
 };

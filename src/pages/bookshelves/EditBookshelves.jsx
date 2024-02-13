@@ -8,7 +8,8 @@ import Card from '../../components/Card'
 import Check from '../../components/buttons/Check'
 import Return from '../../components/buttons/Return'
 import InputField from '../../components/InputField';
-import ValidateDataAndUser from '../../components/validation/ValidateDataAndUser';
+import ValidateData from '../../components/validation/ValidateData'
+import ValidateAdmin from '../../components/validation/ValidateAdmin';
 
 
 const EditBookshelves = () => {
@@ -59,32 +60,34 @@ const EditBookshelves = () => {
 
   return (
 
-    <ValidateDataAndUser data={bookshelve} message={'Estante não encontrada'}>
+    <ValidateData data={bookshelve} message={'Estante não encontrada'}>
+      <ValidateAdmin>
 
-      <Card title={'Editar Estante'}>
+        <Card title={'Editar Estante'}>
 
-        <form onSubmit={editBookshelve}>
+          <form onSubmit={editBookshelve}>
 
-          <InputField label={"Nome"} type={"text"} name={"name"} value={bookshelve.name} onChange={(e) => setBookshelve({ ...bookshelve, name: e.target.value })} />
+            <InputField label={"Nome"} type={"text"} name={"name"} value={bookshelve.name} onChange={(e) => setBookshelve({ ...bookshelve, name: e.target.value })} />
 
-          {/* botões */}
+            {/* botões */}
 
-          {!isLoading && (
+            {!isLoading && (
 
-            <Check />
+              <Check />
 
-          )}
+            )}
 
-          <Link to={'/Bookshelves/' + id}>
-            <Return />
-          </Link>
+            <Link to={'/Bookshelves/' + id}>
+              <Return />
+            </Link>
 
-        </form>
+          </form>
 
-      </Card>
+        </Card>
 
-    </ValidateDataAndUser>
-    
+      </ValidateAdmin>
+    </ValidateData>
+
   )
 }
 

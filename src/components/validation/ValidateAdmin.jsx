@@ -5,15 +5,15 @@ import AuthService from "../../services/authService"
 import ErrorScreen from '../ErrorScreen'
 
 
-const ValidateUser = ({children}) => {
+const ValidateAdmin = ({children}) => {
 
     const user = AuthService.getCurrentUser();
 
     return (
 
         <>
-            {!user ? (
-                <ErrorScreen message={'Nenhum usuário Logado'} />
+            {!user || user.user.is_admin === 0 ? (
+                <ErrorScreen message={'Usuário não autorizado'} />
             ) : (
                 children
             )
@@ -23,4 +23,4 @@ const ValidateUser = ({children}) => {
     )
 }
 
-export default ValidateUser
+export default ValidateAdmin

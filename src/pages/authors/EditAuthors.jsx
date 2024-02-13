@@ -8,7 +8,8 @@ import Card from '../../components/Card'
 import Check from '../../components/buttons/Check'
 import Return from '../../components/buttons/Return'
 import InputField from '../../components/InputField';
-import ValidateDataAndUser from '../../components/validation/ValidateDataAndUser';
+import ValidateData from '../../components/validation/ValidateData';
+import ValidateAdmin from '../../components/validation/ValidateAdmin';
 
 
 const EditAuthors = () => {
@@ -58,35 +59,37 @@ const EditAuthors = () => {
 
   return (
 
-    <ValidateDataAndUser data={author} message={'Autor não encontrado'}>
+    <ValidateAdmin>
+      <ValidateData data={author} message={'Autor não encontrado'}>
 
-      <Card title={'Editar Autor'}>
+        <Card title={'Editar Autor'}>
 
-        <form onSubmit={editAuthor}>
+          <form onSubmit={editAuthor}>
 
-          <InputField
-            label={"Nome"}
-            type={"text"}
-            name={"name"}
-            value={author.name}
-            onChange={(e) => setAuthor({ ...author, name: e.target.value })}
-          />
+            <InputField
+              label={"Nome"}
+              type={"text"}
+              name={"name"}
+              value={author.name}
+              onChange={(e) => setAuthor({ ...author, name: e.target.value })}
+            />
 
-          {/* botões */}
+            {/* botões */}
 
-          {!isLoading && (
-            <Check />
-          )}
+            {!isLoading && (
+              <Check />
+            )}
 
-          <Link to={`/authors/${id}`}>
-            <Return />
-          </Link>
+            <Link to={`/authors/${id}`}>
+              <Return />
+            </Link>
 
-        </form>
+          </form>
 
-      </Card>
+        </Card>
 
-    </ValidateDataAndUser>
+      </ValidateData>
+    </ValidateAdmin>
 
   );
 }

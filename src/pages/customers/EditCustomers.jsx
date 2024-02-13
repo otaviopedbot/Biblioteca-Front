@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getCustomer, updateCustomer } from '../../requests/customer';
+import { toast } from 'react-toastify';
 
 //componentes:
 import Card from '../../components/Card'
 import Check from '../../components/buttons/Check'
 import Return from '../../components/buttons/Return'
-import { toast } from 'react-toastify';
+import InputField from '../../components/InputField';
+import ValidateData from '../../components/validation/ValidateData';
+import ValidateAdmin from '../../components/validation/ValidateAdmin';
 
 
 const EditCustomers = () => {
 
-
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
-
   const [customer, setCustomer] = useState({
     name: "",
     phone: "",
     adress: "",
   })
-
 
   useEffect(() => {
 
@@ -34,7 +34,7 @@ const EditCustomers = () => {
           adress: data.adress,
         });
       } catch (error) {
-        console.error('Erro ao obter Cliente:', error);
+        toast.error(error.response.data.message);
       }
     };
 
@@ -49,62 +49,68 @@ const EditCustomers = () => {
 
     try {
       setIsLoading(true);
-      updateCustomer(id, customer.name, customer.phone, customer.adress)
-      toast.success('Cliente editado com sucesso');
+      await updateCustomer(id, customer.name, customer.phone, customer.adress)
+      toast.success(`Cliente ${customer.name} editado com sucesso`);
       setIsLoading(false);
-      navigate('/customers/' + id);
+      navigate(`/customers/${id}`);
     } catch (error) {
-      toast.error('Erro ao editar Cliente');
-      console.error(error);
+      toast.error(error.response.data.message);
+    } finally {
       setIsLoading(false);
     }
   };
 
-  
+
   return (
-    <div>
 
-      <Card title={'Editar Cliente'}>
+    <ValidateAdmin>
+      <ValidateData data={customer} message={'Cliente não encontrado'}>
 
+        <Card title={'Editar Cliente'}>
 
-        <form onSubmit={editCustomer}>
+          <form onSubmit={editCustomer}>
 
+            <InputField
+              label={"Nome"}
+              type={"text"}
+              name={"name"}
+              value={customer.name}
+              onChange={(e) => setCustomer({ ...customer, name: e.target.value })}
+            />
 
-          <div className='mb-2'>
-            <label htmlFor="name" classtitle="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
-            <input type="text" value={customer.name} onChange={(e) => setCustomer({ ...customer, name: e.target.value })} id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Nome' />
-          </div>
+            <InputField
+              label={"Telefone"}
+              type={"tel"}
+              name={"phone"}
+              value={customer.phone}
+              onChange={(e) => setCustomer({ ...customer, phone: e.target.value })}
+            />
 
-          <div className='mb-2'>
-            <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefone</label>
-            <input type="tel" value={customer.phone} onChange={(e) => setCustomer({ ...customer, phone: e.target.value })} id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Telefone' />
-          </div>
+            <InputField
+              label={"Endereço"}
+              type={"text"}
+              name={"adress"}
+              value={customer.adress}
+              onChange={(e) => setCustomer({ ...customer, adress: e.target.value })}
+            />
 
-          <div className='mb-2'>
-            <label htmlFor="adress" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Endereço</label>
-            <input type="text" value={customer.adress} onChange={(e) => setCustomer({ ...customer, adress: e.target.value })} id="adress" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Endereço' />
-          </div>
+            {/* botões */}
 
+            {!isLoading && (
+              <Check />
+            )}
 
+            <Link to={'/customers/' + id}>
+              <Return />
+            </Link>
 
-          {/* botões */}
+          </form>
 
-          {!isLoading && (
+        </Card>
 
-            <Check />
+      </ValidateData>
+    </ValidateAdmin>
 
-          )}
-
-          <Link to={'/customers/' + id}>
-            <Return />
-          </Link>
-
-        </form>
-
-
-      </Card>
-
-    </div>
   )
 }
 

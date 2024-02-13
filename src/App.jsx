@@ -3,8 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// pages
-
+// pages:
 import Home from './pages/Home';
 
 import Login from './pages/Login';
@@ -73,7 +72,6 @@ function App() {
           <Route path="/bookshelves/:id" element={<ViewBookshelves />} />
           <Route path="/bookshelves/create" element={<CreateBookshelves />} />
           <Route path="/bookshelves/:id/edit" element={<EditBookshelves />} />
-
 
           {/* customers */}
           <Route path="/customers" element={<Customers />} />

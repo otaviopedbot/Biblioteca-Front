@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { getAllRents } from '../../requests/rent';
+import { toast } from 'react-toastify';
+
+//componentes:
 import Table from '../../components/Table';
+import ValidateData from '../../components/validation/ValidateData';
+import ValidateAdmin from '../../components/validation/ValidateAdmin'
 
 const Rents = () => {
   const [data, setData] = useState(null);
@@ -11,30 +16,28 @@ const Rents = () => {
         const response = await getAllRents();
         setData(response);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        toast.error(error.response.data.message);
       }
     };
 
     showRents();
   }, []);
+  
 
-  const titles = ['Data', 'ID Livro','Título Livro','ID Cliente','Nome Cliente'];
+  const titles = ['Data', 'ID Livro', 'Título Livro', 'ID Cliente', 'Nome Cliente'];
 
-  console.log(data)
 
-  return (!data || data.length === 0 ? (
+  return (
 
-    <h1 className='flex items-center justify-center h-screen flex-col px-6 py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white'>
-      Nenhum dado disponível.
-    </h1>
+    <ValidateAdmin>
+      <ValidateData data={data} message={"Não foi possivel obter Aluguéis"}>
 
-  ) : (
+        <div>
+          <Table data={data} titles={titles} tableTitle={'Alugueis'} btnTitle={'Novo Aluguel'} />
+        </div>
 
-    <div>
-      <Table data={data} titles={titles} tableTitle={'Alugueis'} btnTitle={'Novo Aluguel'} />
-    </div>
-
-  )
+      </ValidateData>
+    </ValidateAdmin>
 
   );
 };

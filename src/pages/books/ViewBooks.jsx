@@ -10,13 +10,15 @@ import Card from '../../components/Card';
 import Return from '../../components/buttons/Return'
 import Edit from '../../components/buttons/Edit'
 import Delete from '../../components/buttons/Delete'
-import ErrorScreen from '../../components/ErrorScreen'
+import ValidateData from '../../components/validation/ValidateData';
+import ValidateUser from '../../components/validation/ValidateUser';
+ValidateUser
 
 
 const ViewBooks = () => {
   const { id } = useParams();
   const navigate = useNavigate()
-  const [data, setData] = useState()
+  const [data, setData] = useState([])
   const user = AuthService.getCurrentUser();
   const configConfirmation = {
     title: "Tem certeza?",
@@ -52,7 +54,7 @@ const ViewBooks = () => {
         navigate('/books')
         toast.success(`Livro de ID: ${data.title} removido com sucesso`)
       } catch (error) {
-        console.error('Erro ao remover livro');
+        console.error(error.response.data.message);
         console.log(error)
       }
     }
@@ -61,13 +63,9 @@ const ViewBooks = () => {
 
 
   return (
-    <div>
 
-      {!data || data.length === 0 ? (
-
-        <ErrorScreen message={'Autor não encontrado'} />
-
-      ) : (
+    <ValidateData data={data} message={'Livro não encontrado'}>
+      <ValidateUser>
 
         <Card title={'Detalhes do Livro'}>
 
@@ -82,9 +80,11 @@ const ViewBooks = () => {
 
           {/* botões: */}
 
-          <Link to={'edit'}>
-            <Edit />
-          </Link>
+          {user && user.user.is_admin == 1 && (
+            <Link to={'edit'}>
+              <Edit />
+            </Link>
+          )}
 
           <Link to={'/Books'}>
 
@@ -92,7 +92,7 @@ const ViewBooks = () => {
 
           </Link>
 
-          {user.user.is_admin == 1 && (
+          {user && user.user.is_admin == 1 && (
             <span onClick={() => removeBook(data.id)}>
               <Delete />
             </span>
@@ -100,9 +100,8 @@ const ViewBooks = () => {
 
         </Card>
 
-      )}
-
-    </div >
+      </ValidateUser>
+    </ValidateData>
 
   );
 }

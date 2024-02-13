@@ -10,13 +10,14 @@ import Card from '../../components/Card';
 import Return from '../../components/buttons/Return'
 import Edit from '../../components/buttons/Edit'
 import Delete from '../../components/buttons/Delete'
-import ErrorScreen from '../../components/ErrorScreen'
+import ValidateData from '../../components/validation/ValidateData';
+import ValidateUser from '../../components/validation/ValidateUser';
 
 
 const ViewBookshelves = () => {
   const { id } = useParams();
   const navigate = useNavigate()
-  const [data, setData] = useState()
+  const [data, setData] = useState([])
   const user = AuthService.getCurrentUser();
   const configConfirmation = {
     title: "Tem certeza?",
@@ -52,7 +53,7 @@ const ViewBookshelves = () => {
         navigate('/bookshelves')
         toast.success(`Estante ${data.name} removida com sucesso`)
       } catch (error) {
-        toast.error(`Erro ao remover estante`);
+        toast.error(error.response.data.message);
         console.log(error)
       }
     }
@@ -62,13 +63,8 @@ const ViewBookshelves = () => {
 
   return (
 
-    <div>
-
-      {!data || data.length === 0 ? (
-
-        <ErrorScreen message={'Estante não encontrada'} />
-
-      ) : (
+    <ValidateData data={data} message={'Estante não encontrada'}>
+      <ValidateUser>
 
         <Card title={'Detalhes do Autor'}>
 
@@ -79,7 +75,7 @@ const ViewBookshelves = () => {
 
           {/* botões: */}
 
-          {user.user.is_admin == 1 && (
+          {user && user.user.is_admin == 1 && (
             <Link to={'edit'}>
               <Edit />
             </Link>
@@ -91,7 +87,7 @@ const ViewBookshelves = () => {
 
           </Link>
 
-          {user.user.is_admin == 1 && (
+          {user && user.user.is_admin == 1 && (
             <span onClick={() => removeBookshelve(data.id)}>
               <Delete />
             </span>
@@ -99,9 +95,9 @@ const ViewBookshelves = () => {
 
         </Card>
 
-      )}
+      </ValidateUser>
+    </ValidateData>
 
-    </div>
   );
 }
 

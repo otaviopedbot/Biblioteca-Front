@@ -10,13 +10,14 @@ import Card from '../../components/Card';
 import Return from '../../components/buttons/Return'
 import Edit from '../../components/buttons/Edit'
 import Delete from '../../components/buttons/Delete'
+import ValidateData from '../../components/validation/ValidateData';
 import ValidateUser from '../../components/validation/ValidateUser';
 
 
 const ViewAuthors = () => {
   const { id } = useParams();
   const navigate = useNavigate()
-  const [data, setData] = useState()
+  const [data, setData] = useState([])
   const user = AuthService.getCurrentUser();
   const configConfirmation = {
     title: "Tem certeza?",
@@ -42,7 +43,6 @@ const ViewAuthors = () => {
 
   }, [id]);
 
-
   const removeAuthor = async () => {
     const confirmation = await Swal.fire(configConfirmation);
 
@@ -52,7 +52,7 @@ const ViewAuthors = () => {
         navigate('/authors');
         toast.success(`Autor ${data.name} removido com sucesso`);
       } catch (error) {
-        toast.error(`Erro ao remover autor`);
+        toast.error(error.response.data.message);
         console.log(error)
       }
     }
@@ -61,39 +61,40 @@ const ViewAuthors = () => {
 
 
   return (
-
     <ValidateUser>
+      <ValidateData data={data} message={'Autor não encontrado'}>
 
-      <Card title={'Detalhes do Autor'}>
 
-        <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={data.id}>
-          <li>ID: {data.id}</li>
-          <li>Nome: {data.name}</li>
-        </ul>
+        <Card title={'Detalhes do Autor'}>
 
-        {/* botões: */}
+          <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={data.id}>
+            <li>ID: {data.id}</li>
+            <li>Nome: {data.name}</li>
+          </ul>
 
-        {user.user.is_admin == 1 && (
-          <Link to={'edit'}>
-            <Edit />
+          {/* botões: */}
+          {user && user.user.is_admin == 1 && (
+            <Link to={'edit'}>
+              <Edit />
+            </Link>
+          )}
+
+          <Link to={'/authors'}>
+            <Return />
           </Link>
-        )}
 
-        <Link to={'/authors'}>
+          {user && user.user.is_admin == 1 && (
+            <span onClick={() => removeAuthor(data.id)}>
+              <Delete />
+            </span>
+          )}
 
-          <Return />
+        </Card>
 
-        </Link>
 
-        {user.user.is_admin == 1 && (
-          <span onClick={() => removeAuthor(data.id)}>
-            <Delete />
-          </span>
-        )}
+      </ValidateData>
+    </ValidateUser> 
 
-      </Card>
-
-    </ValidateUser>
   );
 }
 

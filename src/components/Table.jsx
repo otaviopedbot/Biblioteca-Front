@@ -1,20 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import AuthService from "../services/authService"
+
+//componentes:
 import CustomBlue from './buttons/CustomBlue';
 import CustomPurple from './buttons/CustomPurple';
 
 const Table = ({ titles, tableTitle, btnTitle, data }) => {
+
+    const user = AuthService.getCurrentUser();
+
     return (
         <div className="flex items-center justify-center min-h-screen mt-24">
             <div className="overflow-x-auto shadow-md sm:rounded-lg w-full lg:w-4/5 xl:w-3/4">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <caption className="p-5 text-lg font-semibold text-center rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
                         Lista de {tableTitle}
-                        <div className="mt-5">
-                            <Link to={'create'}>
-                                <CustomBlue title={btnTitle} />
-                            </Link>
-                        </div>
+
+                        {user && user.user.is_admin == 1 && (
+                            <div className="mt-5">
+                                <Link to={'create'}>
+                                    <CustomBlue title={btnTitle} />
+                                </Link>
+                            </div>
+                        )}
+
                     </caption>
                     <thead className="text-center text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>

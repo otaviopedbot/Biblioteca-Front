@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 //componentes:
 import Table from '../../components/Table';
-import ErrorScreen from '../../components/ErrorScreen'
+import ValidateData from '../../components/validation/ValidateData';
 
 const Authors = () => {
   const [data, setData] = useState(null);
@@ -24,19 +24,17 @@ const Authors = () => {
 
   const titles = ['Nome'];
 
-  return (!data || data.length === 0 ? (
+  return (
 
-    <ErrorScreen message={'Autores não encontrados'} />
+    <ValidateData data={data} message={"Não foi possivel obter autores"}>
 
-  ) : (
-
-    <div>
-      <Table data={data} titles={titles} tableTitle={'Autores'} btnTitle={'Novo Autor'} />
-    </div>
+      <div>
+        <Table data={data} titles={titles} tableTitle={'Autores'} btnTitle={'Novo Autor'} />
+      </div>
+      
+    </ValidateData>
 
   )
-
-  );
 };
 
 export default Authors;

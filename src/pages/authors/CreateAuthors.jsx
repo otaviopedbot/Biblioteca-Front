@@ -8,7 +8,7 @@ import Card from '../../components/Card'
 import Check from '../../components/buttons/Check'
 import Return from '../../components/buttons/Return'
 import InputField from '../../components/InputField';
-import ValidateUser from '../../components/validation/ValidateUser';
+import ValidateAdmin from '../../components/validation/ValidateAdmin';
 
 
 const CreateAuthors = () => {
@@ -41,7 +41,7 @@ const CreateAuthors = () => {
 
   return (
 
-    <ValidateUser>
+    <ValidateAdmin>
 
       <Card title={'Novo Autor'}>
 
@@ -65,7 +65,8 @@ const CreateAuthors = () => {
 
       </Card>
 
-    </ValidateUser>
+    </ValidateAdmin>
+    
   )
 }
 
