@@ -23,12 +23,12 @@ const EditProfile = () => {
     const navigate = useNavigate();
     const configConfirmation = {
         title: "Tem certeza?",
-        text: "Não é possivel reverter esta ação!",
+        text: "Não é possivel reverter esta ação. O usuário será deletado para sempre!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Sim, deletar!"
+        confirmButtonText: "Sim, deletar usuário!"
     }
 
 

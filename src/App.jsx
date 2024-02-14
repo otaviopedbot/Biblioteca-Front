@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// pages:
+//paginas:
 import Home from './pages/Home';
 
 import Login from './pages/Login';
@@ -40,7 +40,7 @@ import ViewCustomers from './pages/customers/ViewCustomers';
 import EditCustomers from './pages/customers/EditCustomers';
 
 
-// components
+//componentes:
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 

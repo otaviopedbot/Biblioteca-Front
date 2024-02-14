@@ -8,10 +8,13 @@ const Navbar = () => {
 
     const [currentUser, setCurrentUser] = useState("");
     const user = AuthService.getCurrentUser();
+    console.log(user)
 
     useEffect(() => {
         if (user) {
             setCurrentUser(user);
+            // window.location.reload()
+            console.log('ROLA')
         } else {
             setCurrentUser(null);
         }
@@ -40,10 +43,11 @@ const Navbar = () => {
 
 
                     {currentUser ? (
+
                         <div className="navbar-nav ms-auto">
 
                             <Link to={`/profile`}>
-                                <CustomBlue title={user.user.username} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" />
+                                <CustomBlue title={currentUser.user.username} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" />
                             </Link>
 
                             <Link to={'/'}>
@@ -51,6 +55,7 @@ const Navbar = () => {
                             </Link>
 
                         </div>
+
                     ) : (
                         <div className="navbar-nav ms-auto">
                             <Link to={'/login'}>
@@ -78,18 +83,18 @@ const Navbar = () => {
                             <Link to="/bookshelves" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Estantes</Link>
                         </li>
 
-                        {user && user.user.is_admin == 1 && (
+                        {currentUser && currentUser.user.is_admin == 1 && (
                             <li>
                                 <Link to="/customers" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Clientes</Link>
                             </li>
                         )}
 
-                        {user && user.user.is_admin == 1 && (
+                        {currentUser && currentUser.user.is_admin == 1 && (
                             <li>
                                 <Link to="/rents" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Aluguéis</Link>
                             </li>
                         )}
-                        
+
                     </ul>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthService from "../services/authService"
 
@@ -30,12 +30,11 @@ const Login = () => {
 
           const localStorageData = JSON.parse(localStorage.getItem('user'));
 
-          if (localStorageData && localStorageData.user) {
+          if (localStorageData && localStorageData.user){
             const { username } = localStorageData.user;
             toast.success(`Usuário ${username} logado com sucesso`);
             navigate('/');
           }
-
           setIsLoading(false);
         },
         (error) => {
@@ -50,6 +49,7 @@ const Login = () => {
     }
   };
 
+
   return (
     <div>
       <Card title={'Login'}>
@@ -63,6 +63,7 @@ const Login = () => {
             <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Senha</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Senha' />
           </div>
+
 
           {/* botões */}
 

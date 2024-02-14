@@ -4,23 +4,20 @@ import AuthService from "../../services/authService"
 //componentes:
 import ErrorScreen from '../ErrorScreen'
 
+const ValidateUser = ({ children }) => {
+  const user = AuthService.getCurrentUser();
 
-const ValidateUser = ({children}) => {
+  return (
+    <>
+      {!user ? (
+        <ErrorScreen message={'Nenhum usuário Logado'} />
+      ) : (
 
-    const user = AuthService.getCurrentUser();
-
-    return (
-
-        <>
-            {!user ? (
-                <ErrorScreen message={'Nenhum usuário Logado'} />
-            ) : (
-                children
-            )
-            }
-        </>
-
-    )
+        children
+        
+      )}
+    </>
+  )
 }
 
 export default ValidateUser
