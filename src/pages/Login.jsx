@@ -76,7 +76,7 @@ const Login = () => {
             <Return />
           </Link>
 
-          <div>Não tem uma conta?</div>
+          <div className='mb-2'>Não tem uma conta?</div>
 
           <Link to={'/register'}>
             <CustomPurple title={'Cadastre-se'} />

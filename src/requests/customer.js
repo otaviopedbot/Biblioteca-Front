@@ -1,28 +1,28 @@
 import axios from "axios";
+import authHeader from "../services/authHeader";
+import authHeaderAdmin from "../services/authHeaderAdmin";
 
 const url = import.meta.env.VITE_APIURL
 
 export const getAllCustomers = async () => {
     try {
-        const response = await axios.get(`${url}/customers`);
+        const response = await axios.get(`${url}/customers`, { headers: authHeaderAdmin() });
         return response.data
     } catch (error) {
-        console.log("Error geting data:", error.response.data);
-        throw new error;
+        console.log(error);
+        throw error;
     }
 };
-
 
 export const getCustomer = async (id) => {
     try {
-        const response = await axios.get(`${url}/customers/${id}`);
+        const response = await axios.get(`${url}/customers/${id}`, { headers: authHeaderAdmin() });
         return response.data;
     } catch (error) {
-        console.log('Error getting data:', error.response.data);
-        throw new error;
+        console.log(error);
+        throw error;
     }
 };
-
 
 export const postCustomer = async (name, phone, adress) => {
     try {
@@ -30,13 +30,12 @@ export const postCustomer = async (name, phone, adress) => {
             'name': name,
             'phone': phone,
             'adress': adress,
-        });
+        }, { headers: authHeaderAdmin() });
     } catch (error) {
-        console.log("Error posting data:", error.response.data);
-        throw new error;
+        console.log(error);
+        throw error;
     }
 };
-
 
 export const updateCustomer = async (id, name, phone, adress) => {
     try {
@@ -44,21 +43,18 @@ export const updateCustomer = async (id, name, phone, adress) => {
             'name': name,
             'phone': phone,
             'adress': adress,
-        });
+        }, { headers: authHeaderAdmin() });
     } catch (error) {
-        console.log("Error updating data:", error.response.data);
-        throw new error;
+        console.log(error);
+        throw error;
     }
-
 }
-
 
 export const deleteCustomer = async (id) => {
     try {
-        await axios.delete(`${url}/customers/${id}`);
+        await axios.delete(`${url}/customers/${id}`, { headers: authHeaderAdmin() });
     } catch (error) {
-        console.log("Error deleting data:", error.response.data);
-        throw new error;
+        console.log(error);
+        throw error;
     }
-
 }

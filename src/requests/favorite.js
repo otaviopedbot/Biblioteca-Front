@@ -12,10 +12,10 @@ export const postFavorite = async (title, page, quantity, author_id, bookshelve_
             'quantity': quantity,
             'author_id': author_id,
             'bookshelve_id': bookshelve_id
-        });
+        }, { headers: authHeader() });
     } catch (error) {
-        console.log("Error posting data:", error);
-        throw new error;
+        console.log(error);
+        throw error;
     }
 };
 
@@ -24,7 +24,7 @@ export const getFavorite = async (id) => {
         const response = await axios.get(`${url}/users/${id}/favorites`, { headers: authHeader() });
         return response.data;
     } catch (error) {
-        console.log('Error getting data:', error.response.data);
+        console.log(error);
        throw error;
     }
 };
@@ -39,7 +39,7 @@ export const updateFavorite = async (id, username, email, password, image, detai
             'details': details,
         }, { headers: authHeader() });
     } catch (error) {
-        console.log("Error updating data:", error.response.data);
+        console.log(error);
         throw error;
     }
 }
@@ -48,8 +48,7 @@ export const deleteFavorite = async (userId, id) => {
     try {
         await axios.delete(`${url}/users/${userId}/favorites/${id}`, { headers: authHeader() });
     } catch (error) {
-        console.log("Error deleting data:", error.response.data);
+        console.log(error);
         throw error;
     }
-
 }

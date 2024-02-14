@@ -9,7 +9,7 @@ export const getAllUsers = async () => {
         const response = await axios.get(`${url}/users`, { headers: authHeader() });
         return response.data
     } catch (error) {
-        console.log("Error geting data:", error.response.data);
+        console.log(error);
        throw error;
     }
 };
@@ -19,7 +19,7 @@ export const getUser = async (id) => {
         const response = await axios.get(`${url}/users/${id}`, { headers: authHeader() });
         return response.data;
     } catch (error) {
-        console.log('Error getting data:', error.response.data);
+        console.log(error);
        throw error;
     }
 };
@@ -29,7 +29,7 @@ export const searchUser = async (username) => {
         const response = await axios.get(`${url}/users/search/${username}`, { headers: authHeader() });
         return response.data;
     } catch (error) {
-        console.log('Error getting data:', error.response.data);
+        console.log(error);
        throw error;
     }
 };
@@ -44,7 +44,7 @@ export const updateUser = async (id, username, email, password, image, details) 
             'details': details,
         }, { headers: authHeader() });
     } catch (error) {
-        console.log("Error updating data:", error.response.data);
+        console.log(error);
         throw error;
     }
 }
@@ -53,8 +53,7 @@ export const deleteUser = async (id) => {
     try {
         await axios.delete(`${url}/users/${id}`, { headers: authHeader() });
     } catch (error) {
-        console.log("Error deleting data:", error.response.data);
+        console.log(error);
         throw error;
     }
-
 }
