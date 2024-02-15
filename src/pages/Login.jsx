@@ -34,6 +34,7 @@ const Login = () => {
             const { username } = localStorageData.user;
             toast.success(`Usuário ${username} logado com sucesso`);
             navigate('/');
+            window.location.reload()
           }
           setIsLoading(false);
         },

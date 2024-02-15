@@ -35,8 +35,9 @@ const EditBooks = () => {
           title: data.title,
           page: data.page,
           quantity: data.quantity,
-          author_id: data.author_id,
-          bookshelve_id: data.bookshelve_id
+          synopsis: data.synopsis,
+          author_id: data.author.id,
+          bookshelve_id: data.bookshelve.id
         });
       } catch (error) {
         toast.error(error.response.data.message);
@@ -76,6 +77,8 @@ const EditBooks = () => {
           <form onSubmit={editBook}>
 
             <InputField label={"Título"} type={"text"} name={"title"} value={book.title} onChange={(e) => setBook({ ...book, title: e.target.value })} />
+
+            <InputField label={"Sinópse"} type={"textarea"} name={"synopsis"} value={book.synopsis} onChange={(e) => setBook({ ...book, synopsis: e.target.value })} />
 
             <InputField label={"Páginas"} type={"number"} name={"page"} value={book.page} onChange={(e) => setBook({ ...book, page: e.target.value })} />
 

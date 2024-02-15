@@ -24,12 +24,13 @@ export const getBook = async (id) => {
     }
 };
 
-export const postBook = async (title, page, quantity, author_id, bookshelve_id) => {
+export const postBook = async (title, page, quantity, author_id, bookshelve_id, synopsis) => {
     try {
         await axios.post(`${url}/books`, { 
             'title': title,
             'page': page,
             'quantity': quantity,
+            'synopsis': synopsis,
             'author_id': author_id,
             'bookshelve_id': bookshelve_id
         }, { headers: authHeaderAdmin() });
@@ -39,12 +40,13 @@ export const postBook = async (title, page, quantity, author_id, bookshelve_id) 
     }
 };
 
-export const updateBook = async (id, title, page, quantity, author_id, bookshelve_id) => {
+export const updateBook = async (id, title, page, quantity, author_id, bookshelve_id, synopsis) => {
     try {
         await axios.put(`${url}/books/${id}`, { 
             'title': title,
             'page': page,
             'quantity': quantity,
+            'synopsis':synopsis,
             'author_id': author_id,
             'bookshelve_id': bookshelve_id
         }, { headers: authHeaderAdmin() });

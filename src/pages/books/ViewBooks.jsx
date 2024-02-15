@@ -1,108 +1,145 @@
 import React, { useState, useEffect } from 'react';
 import { getBook, deleteBook } from '../../requests/book';
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { getReview, deleteReview, updateReview } from '../../requests/review';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import AuthService from "../../services/authService"
+import AuthService from "../../services/authService";
 import Swal from "sweetalert2";
+import ValidateData from '../../components/validation/ValidateData';
+import ValidateUser from '../../components/validation/ValidateUser';
 
 // componentes:
 import Card from '../../components/Card';
 import Return from '../../components/buttons/Return'
 import Edit from '../../components/buttons/Edit'
 import Delete from '../../components/buttons/Delete'
-import ValidateData from '../../components/validation/ValidateData';
-import ValidateUser from '../../components/validation/ValidateUser';
-ValidateUser
 
 
 const ViewBooks = () => {
   const { id } = useParams();
-  const navigate = useNavigate()
-  const [data, setData] = useState([])
+  const navigate = useNavigate();
+  const [book, setBook] = useState(null);
+  const [reviews, setReviews] = useState(null);
   const user = AuthService.getCurrentUser();
   const configConfirmation = {
     title: "Tem certeza?",
-    text: "Não é possivel reverter esta ação!",
+    text: "Não é possível reverter esta ação!",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
     confirmButtonText: "Sim, deletar!"
-  }
+  };
 
   useEffect(() => {
-
-    const showBook = async () => {
+    const fetchBook = async () => {
       try {
         const result = await getBook(id);
-        setData(result);
+        setBook(result);
       } catch (error) {
         toast.error(error.response.data.message);
       }
     };
-    showBook();
-
+    fetchBook();
   }, [id]);
 
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const result = await getReview(id);
+        setReviews(result);
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    };
+    fetchReviews();
+  }, [id]);
 
   const removeBook = async () => {
     const confirmation = await Swal.fire(configConfirmation);
-
     if (confirmation.isConfirmed) {
       try {
         await deleteBook(id);
-        navigate('/books')
-        toast.success(`Livro de ID: ${data.title} removido com sucesso`)
+        navigate('/books');
+        toast.success(`Livro removido com sucesso`);
       } catch (error) {
-        console.error(error.response.data.message);
-        console.log(error)
+        toast.error(error.response.data.message);
+        console.log(error);
       }
     }
-
   };
 
+  console.log(reviews)
 
   return (
-
-    <ValidateData data={data} message={'Livro não encontrado'}>
+    <ValidateData data={book} message={'Livro não encontrado'}>
       <ValidateUser>
+        {book && (
+          <div className="grid grid-cols-2 grid-rows-1 gap-4 h-screen text-center mt-24 m-8">
 
-        <Card title={'Detalhes do Livro'}>
+            {/* Livro */}
 
-          <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={data.id}>
-            <li>ID: {data.id}</li>
-            <li>Título: {data.title}</li>
-            <li>Paginas: {data.page}</li>
-            <li>Quantidade: {data.quantity}</li>
-            <li>ID do Autor: {data.author_id}</li>
-            <li>ID da Estante: {data.bookshelve_id}</li>
-          </ul>
+            <div className="p-8 m-4">
+              <div className="rounded-lg overflow-hidden shadow-md bg-white dark:bg-gray-800 text-gray-700 dark:text-white">
+                <div className="p-6 text-center">
 
-          {/* botões: */}
+                  <div className="font-bold text-xl mb-4">{book.title}</div>
 
-          {user && user.user.is_admin == 1 && (
-            <Link to={'edit'}>
-              <Edit />
-            </Link>
-          )}
+                  <h1 className='m-2'>Sinopse:</h1>
+                  <h2>{book.synopsis}</h2>
 
-          <Link to={'/Books'}>
+                  <h1 className='m-2'>Informações:</h1>
 
-            <Return />
+                  <ul className="space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={book.id}>
+                    <li>ID: {book.id}</li>
+                    <li>Numero de páginas: {book.page}</li>
+                    <li>Quantidade: {book.quantity}</li>
+                    <li>Autor(a): {book.author && book.author.name}</li>
+                    <li>Estante: {book.bookshelve && book.bookshelve.name}</li>
+                  </ul>
 
-          </Link>
+                  {/* botões */}
+                  {user && user.user.is_admin === 1 && (
+                    <Link to={'edit'}>
+                      <Edit />
+                    </Link>
+                  )}
 
-          {user && user.user.is_admin == 1 && (
-            <span onClick={() => removeBook(data.id)}>
-              <Delete />
-            </span>
-          )}
+                  <Link to={'/Books'}>
+                    <Return />
+                  </Link>
 
-        </Card>
+                  {user && user.user.is_admin === 1 && (
+                    <span onClick={removeBook}>
+                      <Delete />
+                    </span>
+                  )}
 
+                </div>
+              </div>
+            </div>
+
+            {/* Avaliações */}
+
+            <div className="p-8 m-4">
+              <div className="rounded-lg overflow-hidden shadow-md bg-white dark:bg-gray-800 text-gray-700 dark:text-white">
+                <div className="p-6 text-center">
+
+                  <div className="font-bold text-xl mb-4">Avaliações:</div>
+
+                  <div className="space-y-4">
+                    {/* Aqui você pode exibir as avaliações do livro */}
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        )}
       </ValidateUser>
     </ValidateData>
-
   );
 }
 

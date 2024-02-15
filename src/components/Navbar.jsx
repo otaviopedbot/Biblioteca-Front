@@ -8,13 +8,10 @@ const Navbar = () => {
 
     const [currentUser, setCurrentUser] = useState("");
     const user = AuthService.getCurrentUser();
-    console.log(user)
 
     useEffect(() => {
         if (user) {
             setCurrentUser(user);
-            // window.location.reload()
-            console.log('ROLA')
         } else {
             setCurrentUser(null);
         }
