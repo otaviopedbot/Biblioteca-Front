@@ -10,7 +10,17 @@ const InputField = ({ label, type, name, value, onChange }) => {
             </div>
         );
     }
-    // Se o tipo não for "textarea", renderiza um input normal
+    // Se o tipo for "range", renderiza um input range
+    if (type === 'range') {
+        return (
+            <div className='mb-2'>
+                <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{label}</label>
+                <input type={type} min="0" max="10" value={value} onChange={onChange} id={name} name={name} className="appearance-none bg-gray-200 h-4 rounded-full w-full mt-1 focus:outline-none focus:bg-blue-500 dark:bg-gray-600" />
+                <output className="text-gray-700 dark:text-white mt-1 ml-2">{value}</output>
+            </div>
+        );
+    }
+    // Se o tipo não for "textarea" nem "range", renderiza um input normal
     return (
         <div className='mb-2'>
             <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{label}</label>

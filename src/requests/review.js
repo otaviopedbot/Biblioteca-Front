@@ -4,9 +4,9 @@ import authHeaderAdmin from "../services/authHeaderAdmin";
 
 const url = import.meta.env.VITE_APIURL
 
-export const postReview = async (user_id, body, rating) => {
+export const postReview = async (book_id, user_id, body, rating) => {
     try {
-        await axios.post(`${url}/books`, { 
+        await axios.post(`${url}/books/${book_id}/reviews`, { 
             'user_id': user_id,
             'body': body,
             'rating': rating,
