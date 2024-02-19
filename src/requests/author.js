@@ -4,9 +4,16 @@ import authHeaderAdmin from "../services/authHeaderAdmin";
 
 const url = import.meta.env.VITE_APIURL
 
-export const getAllAuthors = async () => {
+export const getAllAuthors = async (page, pageSize) => {
     try {
-        const response = await axios.get(`${url}/authors`, { headers: authHeader() });
+        let response = ''
+
+        if (page && pageSize) {
+            response = await axios.get(`${url}/authors?page=${page}&pageSize=${pageSize}`, { headers: authHeader() });
+        } else {
+            response = await axios.get(`${url}/authors`, { headers: authHeader() });
+        }
+
         return response.data
     } catch (error) {
         console.log(error)

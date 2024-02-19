@@ -4,9 +4,15 @@ import authHeaderAdmin from "../services/authHeaderAdmin";
 
 const url = import.meta.env.VITE_APIURL
 
-export const getAllBookshelves = async () => {
+export const getAllBookshelves = async (page, pageSize) => {
     try {
-        const response = await axios.get(`${url}/bookshelves`, { headers: authHeader() });
+        let response = ''
+
+        if (page && pageSize) {
+            response = await axios.get(`${url}/bookshelves?page=${page}&pageSize=${pageSize}`, { headers: authHeader() });
+        } else {
+            response = await axios.get(`${url}/bookshelves`, { headers: authHeader() });
+        }
         return response.data
     } catch (error) {
         console.log(error);

@@ -4,9 +4,15 @@ import authHeaderAdmin from "../services/authHeaderAdmin";
 
 const url = import.meta.env.VITE_APIURL
 
-export const getAllCustomers = async () => {
+export const getAllCustomers = async (page, pageSize) => {
     try {
-        const response = await axios.get(`${url}/customers`, { headers: authHeaderAdmin() });
+        let response = ''
+
+        if (page && pageSize) {
+            response = await axios.get(`${url}/customers?page=${page}&pageSize=${pageSize}`, { headers: authHeader() });
+        } else {
+            response = await axios.get(`${url}/customers`, { headers: authHeader() });
+        }
         return response.data
     } catch (error) {
         console.log(error);

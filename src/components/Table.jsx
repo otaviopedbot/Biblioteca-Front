@@ -5,6 +5,7 @@ import AuthService from "../services/authService"
 //componentes:
 import CustomBlue from './buttons/CustomBlue';
 import CustomPurple from './buttons/CustomPurple';
+import Pagination from './Pagination';
 
 const Table = ({ titles, tableTitle, btnTitle, data }) => {
 
@@ -48,6 +49,7 @@ const Table = ({ titles, tableTitle, btnTitle, data }) => {
                             </tr>
                         ))}
                     </tbody>
+
                 </table>
             </div>
         </div>

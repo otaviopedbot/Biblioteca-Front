@@ -4,13 +4,20 @@ import authHeaderAdmin from "../services/authHeaderAdmin";
 
 const url = import.meta.env.VITE_APIURL
 
-export const getAllUsers = async () => {
+export const getAllUsers = async (page, pageSize) => {
     try {
-        const response = await axios.get(`${url}/users`, { headers: authHeader() });
+        let response = ''
+
+        if (page && pageSize) {
+            response = await axios.get(`${url}/users?page=${page}&pageSize=${pageSize}`, { headers: authHeader() });
+        } else {
+            response = await axios.get(`${url}/users`, { headers: authHeader() });
+        }
+
         return response.data
     } catch (error) {
         console.log(error);
-       throw error;
+        throw error;
     }
 };
 
@@ -20,7 +27,7 @@ export const getUser = async (id) => {
         return response.data;
     } catch (error) {
         console.log(error);
-       throw error;
+        throw error;
     }
 };
 
@@ -30,13 +37,13 @@ export const searchUser = async (username) => {
         return response.data;
     } catch (error) {
         console.log(error);
-       throw error;
+        throw error;
     }
 };
 
 export const updateUser = async (id, username, email, password, image, details) => {
     try {
-        await axios.put(`${url}/users/${id}`, { 
+        await axios.put(`${url}/users/${id}`, {
             'username': username,
             'email': email,
             'password': password,

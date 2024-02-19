@@ -1,12 +1,10 @@
-import React from 'react'
-
-//componentes:
-import Card from '../components/Card'
+import React from 'react';
 
 
 const Home = () => {
 
   return (
+
     <div className="grid grid-cols-2 grid-rows-1 gap-4 h-screen text-center mt-24 m-8">
       <div className="p-8 m-4 bg-blue-500">
 
@@ -51,6 +49,8 @@ const Home = () => {
     </div>
   )
 }
+
+
 
 export default Home
 

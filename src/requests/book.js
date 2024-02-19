@@ -4,13 +4,20 @@ import authHeaderAdmin from "../services/authHeaderAdmin";
 
 const url = import.meta.env.VITE_APIURL
 
-export const getAllBooks = async () => {
+export const getAllBooks = async (page, pageSize) => {
     try {
-        const response = await axios.get(`${url}/books`, { headers: authHeader() });
+        let response = ''
+
+        if (page && pageSize) {
+            response = await axios.get(`${url}/books?page=${page}&pageSize=${pageSize}`, { headers: authHeader() });
+        } else {
+            response = await axios.get(`${url}/books`, { headers: authHeader() });
+        }
+
         return response.data
     } catch (error) {
         console.log(error);
-       throw error;
+        throw error;
     }
 };
 
@@ -20,13 +27,13 @@ export const getBook = async (id) => {
         return response.data;
     } catch (error) {
         console.log(error);
-       throw error;
+        throw error;
     }
 };
 
 export const postBook = async (title, page, quantity, author_id, bookshelve_id, synopsis) => {
     try {
-        await axios.post(`${url}/books`, { 
+        await axios.post(`${url}/books`, {
             'title': title,
             'page': page,
             'quantity': quantity,
@@ -42,11 +49,11 @@ export const postBook = async (title, page, quantity, author_id, bookshelve_id, 
 
 export const updateBook = async (id, title, page, quantity, author_id, bookshelve_id, synopsis) => {
     try {
-        await axios.put(`${url}/books/${id}`, { 
+        await axios.put(`${url}/books/${id}`, {
             'title': title,
             'page': page,
             'quantity': quantity,
-            'synopsis':synopsis,
+            'synopsis': synopsis,
             'author_id': author_id,
             'bookshelve_id': bookshelve_id
         }, { headers: authHeaderAdmin() });

@@ -24,8 +24,6 @@ const Books = () => {
 
   const titles = ['Título', 'páginas', 'Quantidade', 'ID Autor', 'ID estante'];
 
-  console.log(data)
-
   return (
 
     <ValidateData data={data} message={'Não foi possivel obter Livros'}>
