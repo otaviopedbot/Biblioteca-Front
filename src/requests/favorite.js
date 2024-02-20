@@ -4,14 +4,10 @@ import authHeaderAdmin from "../services/authHeaderAdmin";
 
 const url = import.meta.env.VITE_APIURL
 
-export const postFavorite = async (title, page, quantity, author_id, bookshelve_id) => {
+export const postFavorite = async (userId, bookId) => {
     try {
-        await axios.post(`${url}/books`, { 
-            'title': title,
-            'page': page,
-            'quantity': quantity,
-            'author_id': author_id,
-            'bookshelve_id': bookshelve_id
+        await axios.post(`${url}/users/${userId}/favorites`, { 
+            'book_id': bookId,
         }, { headers: authHeader() });
     } catch (error) {
         console.log(error);
@@ -19,30 +15,15 @@ export const postFavorite = async (title, page, quantity, author_id, bookshelve_
     }
 };
 
-export const getFavorite = async (id) => {
+export const getFavorite = async (userId) => {
     try {
-        const response = await axios.get(`${url}/users/${id}/favorites`, { headers: authHeader() });
+        const response = await axios.get(`${url}/users/${userId}/favorites`, { headers: authHeader() });
         return response.data;
     } catch (error) {
         console.log(error);
         throw error;
     }
 };
-
-export const updateFavorite = async (id, username, email, password, image, details) => {
-    try {
-        await axios.put(`${url}/users/${id}`, { 
-            'username': username,
-            'email': email,
-            'password': password,
-            'image': image,
-            'details': details,
-        }, { headers: authHeader() });
-    } catch (error) {
-        console.log(error);
-        throw error;
-    }
-}
 
 export const deleteFavorite = async (userId, id) => {
     try {

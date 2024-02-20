@@ -15,7 +15,7 @@ import ErrorScreen from '../../components/ErrorScreen';
 
 const Profile = () => {
   const user = AuthService.getCurrentUser();
-  const [favorites, setFavorites] = useState();
+  const [favorites, setFavorites] = useState([]);
   const configConfirmation = {
     title: "Tem certeza?",
     text: "Não é possível reverter esta ação!",
@@ -40,8 +40,7 @@ const Profile = () => {
     };
   
     fetchFavorites();
-  }, [user]); // Removido "favorites" do array de dependências
-  
+  }, [user]); 
 
 
   const removeFavorite = async (userId, favoriteId) => {
@@ -57,15 +56,11 @@ const Profile = () => {
         console.log(error);
       }
     }
-    
   };
 
 
   return (
-    <>
-      {!user ? (
-        <ErrorScreen message={'Nenhum usuário Logado'} />
-      ) : (
+    <ValidateUser>
         <Card title={`${user.user.username}`}>
           <img className="rounded-lg mx-auto w-1/2" src={user.user.image} alt="User profile image"></img>
           <h1>Sobre mim:</h1>
@@ -73,8 +68,8 @@ const Profile = () => {
           <h1>Meus livros favoritos:</h1>
 
 
-          {!Array.isArray(favorites) ? (
-            <p>a</p>
+          {favorites.length == 0 ? (
+            <p>Ainda sem livros favoritos</p>
           ) : (
             <ul>
               {favorites.map((favorite) => (
@@ -103,8 +98,7 @@ const Profile = () => {
             <Return />
           </Link>
         </Card>
-      )}
-    </>
+</ValidateUser>
   );
 }
 

@@ -4,9 +4,9 @@ import authHeaderAdmin from "../services/authHeaderAdmin";
 
 const url = import.meta.env.VITE_APIURL
 
-export const postReview = async (book_id, user_id, body, rating) => {
+export const postReview = async (bookId, user_id, body, rating) => {
     try {
-        await axios.post(`${url}/books/${book_id}/reviews`, { 
+        await axios.post(`${url}/books/${bookId}/reviews`, {
             'user_id': user_id,
             'body': body,
             'rating': rating,
@@ -17,19 +17,26 @@ export const postReview = async (book_id, user_id, body, rating) => {
     }
 };
 
-export const getReview = async (id) => {
+export const getReview = async (bookId, page, pageSize) => {
     try {
-        const response = await axios.get(`${url}/books/${id}/reviews`, { headers: authHeader() });
-        return response.data;
+        let response = ''
+
+        if (page && pageSize) {
+            response = await axios.get(`${url}/books/${bookId}/reviews?page=${page}&pageSize=${pageSize}`, { headers: authHeader() });
+        } else {
+            response = await axios.get(`${url}/books/${bookId}/reviews`, { headers: authHeader() });
+        }
+
+        return response
     } catch (error) {
-        console.log(error);
+        console.log(error)
         throw error;
     }
 };
 
-export const updateReview = async (id, userId, body, rating) => {
+export const updateReview = async (bookId, userId, body, rating) => {
     try {
-        await axios.put(`${url}/books/${id}/reviews/${reviewId}`, { 
+        await axios.put(`${url}/books/${bookId}/reviews/${reviewId}`, {
             'userId': userId,
             'body': body,
             'rating': rating,
@@ -40,9 +47,9 @@ export const updateReview = async (id, userId, body, rating) => {
     }
 }
 
-export const deleteReview = async (reviewId, id) => {
+export const deleteReview = async (bookId, reviewId) => {
     try {
-        await axios.delete(`${url}/books/${id}/reviews/${reviewId}`, { headers: authHeader() });
+        await axios.delete(`${url}/books/${bookId}/reviews/${reviewId}`, { headers: authHeader() });
     } catch (error) {
         console.log(error);
         throw error;

@@ -26,7 +26,7 @@ const Pagination = ({totalPages, setPage, page}) => {
 
 
     return (
-        <div>
+        <div className='mt-2'>
 
             {/* <ul>
                 {data.map(item => (
@@ -37,7 +37,7 @@ const Pagination = ({totalPages, setPage, page}) => {
 
             <CustomBlue
                 title={
-                    <svg class="w-[12px] h-[12px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="w-[12px] h-[12px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m15 19-7-7 7-7" />
                     </svg>
                 }
@@ -48,7 +48,7 @@ const Pagination = ({totalPages, setPage, page}) => {
 
             <CustomBlue
                 title={
-                    <svg class="w-[12px] h-[12px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="w-[12px] h-[12px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m9 5 7 7-7 7" />
                     </svg>
                 }

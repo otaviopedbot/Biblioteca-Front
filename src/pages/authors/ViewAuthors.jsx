@@ -15,6 +15,7 @@ import ValidateUser from '../../components/validation/ValidateUser';
 
 
 const ViewAuthors = () => {
+
   const { id } = useParams();
   const navigate = useNavigate()
   const [data, setData] = useState([])
@@ -30,7 +31,6 @@ const ViewAuthors = () => {
   }
 
   useEffect(() => {
-
     const showAuthor = async () => {
       try {
         const result = await getAuthor(id);
@@ -64,7 +64,6 @@ const ViewAuthors = () => {
     <ValidateUser>
       <ValidateData data={data} message={'Autor não encontrado'}>
 
-
         <Card title={'Detalhes do Autor'}>
 
           <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={data.id}>
@@ -90,7 +89,6 @@ const ViewAuthors = () => {
           )}
 
         </Card>
-
 
       </ValidateData>
     </ValidateUser> 
