@@ -7,12 +7,12 @@ import CustomBlue from './buttons/CustomBlue';
 import CustomPurple from './buttons/CustomPurple';
 import Pagination from './Pagination';
 
-const Table = ({ titles, tableTitle, btnTitle, data }) => {
+const Table = ({ titles, tableTitle, btnTitle, data, totalPages, setPage, page }) => {
 
     const user = AuthService.getCurrentUser();
 
     return (
-        <div className="flex items-center justify-center min-h-screen mt-24">
+        <div className="flex items-center justify-center min-h-screen mt-24 text-center">
             <div className="overflow-x-auto shadow-md sm:rounded-lg w-full lg:w-4/5 xl:w-3/4">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <caption className="p-5 text-lg font-semibold text-center rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
@@ -32,7 +32,14 @@ const Table = ({ titles, tableTitle, btnTitle, data }) => {
                             {titles.map((title, index) => (
                                 <th key={index} className="px-4 lg:px-6 py-3">{title}</th>
                             ))}
-                            <th scope="col" className="px-4 lg:px-6 py-3">Ação</th>
+
+                            {user && (
+
+                                <th scope="col" className="px-4 lg:px-6 py-3">Ação</th>
+
+                            )}
+
+
                         </tr>
                     </thead>
                     <tbody>
@@ -41,16 +48,30 @@ const Table = ({ titles, tableTitle, btnTitle, data }) => {
                                 {Object.entries(rowData).map(([key, value], colIndex) => key !== 'id' && (
                                     <td key={colIndex} className="px-4 lg:px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{value}</td>
                                 ))}
-                                <td className="px-2 py-4">
-                                    <Link to={`${rowData.id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                        <CustomPurple title={"Sobre"} />
-                                    </Link>
-                                </td>
+
+                                {user && (
+
+                                    <td className="px-2 py-4">
+                                        <Link to={`${rowData.id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                            <CustomPurple title={"Sobre"} />
+                                        </Link>
+                                    </td>
+
+                                )}
+
                             </tr>
                         ))}
+
                     </tbody>
 
                 </table>
+
+                <div className="p-5 text-lg font-semibold text-center rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+
+                    <Pagination totalPages={totalPages} setPage={setPage} page={page} />
+
+                </div>
+
             </div>
         </div>
     );

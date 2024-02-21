@@ -37,7 +37,6 @@ const Users = () => {
     fetchFavorites();
   }, [user]);
 
-
   return user ? (
     <Card title={`${user.username}`}>
 

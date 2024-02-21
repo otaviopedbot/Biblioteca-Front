@@ -9,32 +9,32 @@ import ValidateAdmin from '../../components/validation/ValidateAdmin'
 
 const Rents = () => {
   const [data, setData] = useState(null);
+  const [page, setPage] = useState(1);
+  const [pageSize] = useState(5); // Número de itens por página
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    const showRents = async () => {
+    const fetchData = async () => {
       try {
-        const response = await getAllRents();
-        setData(response);
+        const response = await getAllRents(page, pageSize);
+        setData(response.data);
+        setTotalPages(Math.ceil(response.total_items / pageSize));
       } catch (error) {
         toast.error(error.response.data.message);
       }
     };
 
-    showRents();
-  }, []);
-  
+    fetchData();
+  }, [page, pageSize]);
 
-  const titles = ['Data', 'ID Livro', 'Título Livro', 'ID Cliente', 'Nome Cliente'];
-
+  const titles = ['Data', 'Título do Livro', 'Nome Cliente'];
 
   return (
 
     <ValidateAdmin>
       <ValidateData data={data} message={"Não foi possivel obter Aluguéis"}>
 
-        <div>
-          <Table data={data} titles={titles} tableTitle={'Alugueis'} btnTitle={'Novo Aluguel'} />
-        </div>
+        <Table data={data} titles={titles} tableTitle={'Alugueis'} btnTitle={'Novo Aluguel'} totalPages={totalPages} setPage={setPage} page={page} />
 
       </ValidateData>
     </ValidateAdmin>

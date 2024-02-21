@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getBook, deleteBook } from '../../requests/book';
 import { getReview, deleteReview, updateReview, postReview } from '../../requests/review';
-import { postFavorite } from '../../requests/favorite';
+import { postFavorite, deleteFavorite } from '../../requests/favorite';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AuthService from "../../services/authService";
@@ -22,7 +22,7 @@ import Favorite from '../../components/buttons/Favorite';
 const ViewBooks = () => {
 
   const [body, setBody] = useState("")
-  const [rate, setRate] = useState("")
+  const [rate, setRate] = useState()
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false)
@@ -50,7 +50,6 @@ const ViewBooks = () => {
     cancelButtonColor: "#d33",
     confirmButtonText: "Sim, remover!"
   };
-
 
 
   useEffect(() => {
@@ -100,9 +99,9 @@ const ViewBooks = () => {
     try {
       setIsLoading(true)
       await postReview(id, user.user.id, body, rate)
-      toast.success(`Livro ${title} avaliado com sucesso`);
+      toast.success(`Livro ${book.title} avaliado com sucesso`);
+      setPage(1)
       setIsLoading(false)
-      window.location.reload()
     } catch (error) {
       toast.error(`Erro ao avaliar Livro: ${error.response.data.message}`);
     } finally {
@@ -110,11 +109,12 @@ const ViewBooks = () => {
     }
   };
 
-  const removeReview = async (reviewId) => {
+  const removeReview = async () => {
     const confirmation = await Swal.fire(configConfirmation);
     if (confirmation.isConfirmed) {
       try {
-        await deleteReview(id, reviewId);
+        await deleteReview(id, user.user.id);
+        setPage(1)
         toast.success(`Avaliação apagada com sucesso`);
       } catch (error) {
         toast.error(error.response.data.message);
@@ -132,29 +132,21 @@ const ViewBooks = () => {
       setIsLoading(false)
     } catch (error) {
 
-      toast.error(`Erro ao favoritar Livro: ${error.response.data.message}`);
-
-
       const confirmation = await Swal.fire(configConfirmationFavorite);
       if (confirmation.isConfirmed) {
         try {
 
+          await deleteFavorite(user.user.id, id);
 
-
-          // TEM PROBLEMA AQUI
-
-
-          await deleteFavorite(user.user.id, favoriteId);
-          
           toast.success(`Favorito removido com sucesso`);
 
         } catch (error) {
 
           toast.error(`Erro ao remover Favorito`);
           console.log(error);
+
         }
       }
-
 
     } finally {
       setIsLoading(false);
@@ -228,12 +220,16 @@ const ViewBooks = () => {
                     {data.map((review) => (
 
                       <div key={review.id} className="rounded-lg overflow-hidden shadow-md bg-white dark:bg-gray-700 text-gray-700 dark:text-white p-2">
-                        Usuário: {review.username}
+
+                        <Link to={`/users/${review.username}`}>
+                          Usuário: {review.username}
+                        </Link>
                         <br></br>
                         Nota: {review.rating}/10
                         <br></br>
                         Comentário: {review.body}
                         <br></br>
+
                         {user.user.id == review.user_id && (
                           <span onClick={removeReview}>
 

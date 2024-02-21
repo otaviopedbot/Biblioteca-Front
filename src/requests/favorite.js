@@ -25,9 +25,9 @@ export const getFavorite = async (userId) => {
     }
 };
 
-export const deleteFavorite = async (userId, id) => {
+export const deleteFavorite = async (userId, bookId) => {
     try {
-        await axios.delete(`${url}/users/${userId}/favorites/${id}`, { headers: authHeader() });
+        await axios.delete(`${url}/users/${userId}/favorites/${bookId}`, { headers: authHeader() });
     } catch (error) {
         console.log(error);
         throw error;

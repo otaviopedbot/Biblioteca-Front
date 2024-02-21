@@ -11,7 +11,6 @@ import Config from '../../components/buttons/Config';
 import Card from '../../components/Card';
 import Return from '../../components/buttons/Return';
 import Edit from '../../components/buttons/Edit';
-import ErrorScreen from '../../components/ErrorScreen';
 
 const Profile = () => {
   const user = AuthService.getCurrentUser();
@@ -43,13 +42,13 @@ const Profile = () => {
   }, [user]); 
 
 
-  const removeFavorite = async (userId, favoriteId) => {
+  const removeFavorite = async (userId, bookId) => {
     const confirmation = await Swal.fire(configConfirmation);
     if (confirmation.isConfirmed) {
       try {
-        await deleteFavorite(userId, favoriteId);
+        await deleteFavorite(userId, bookId);
         // Remover o favorito removido da lista de favoritos do estado
-        setFavorites(favorites.filter(favorite => favorite.favorite_id !== favoriteId));
+        setFavorites(favorites.filter(favorite => favorite.favorite_id !== bookId));
         toast.success(`Favorito removido com sucesso`);
       } catch (error) {
         toast.error(`Erro ao remover Favorito`);
@@ -57,7 +56,6 @@ const Profile = () => {
       }
     }
   };
-
 
   return (
     <ValidateUser>
@@ -78,7 +76,7 @@ const Profile = () => {
                     {favorite.book.title}
                   </Link>
                   <br />
-                  <button className='ml-2 text-red-500' onClick={() => removeFavorite(user.user.id, favorite.favorite_id)}>
+                  <button className='ml-2 text-red-500' onClick={() => removeFavorite(user.user.id, favorite.book.id)}>
                     Apagar
                   </button>
                 </li>

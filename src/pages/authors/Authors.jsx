@@ -13,7 +13,6 @@ const Authors = () => {
   const [pageSize] = useState(5); // Número de itens por página
   const [totalPages, setTotalPages] = useState(0);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -34,17 +33,13 @@ const Authors = () => {
 
     <div className="mt-24">
 
-      < ValidateData data={data} message={"Não foi possivel obter autores"} >
+      <ValidateData data={data} message={"Não foi possivel obter autores"} >
 
-        <Table data={data} titles={titles} tableTitle={'Autores'} btnTitle={'Novo Autor'} />
-
-        <Pagination totalPages={totalPages} setPage={setPage} page={page} />
+        <Table data={data} titles={titles} tableTitle={'Autores'} btnTitle={'Novo Autor'} totalPages={totalPages} setPage={setPage} page={page} />
 
       </ValidateData >
 
     </div>
-
-
 
   )
 };
