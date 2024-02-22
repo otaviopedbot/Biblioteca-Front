@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { getRent, deleteRent } from '../../requests/rent';
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify';
+import Swal from "sweetalert2";
 
-// componentes:
+//componentes:
 import Card from '../../components/Card';
 import Return from '../../components/buttons/Return'
 import Edit from '../../components/buttons/Edit'
@@ -16,7 +17,15 @@ const ViewRents = () => {
   const { id } = useParams();
   const navigate = useNavigate()
   const [data, setData] = useState([])
-
+  const configConfirmation = {
+    title: "Tem certeza?",
+    text: "Não é possivel reverter esta ação!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sim, deletar!"
+  }
 
   useEffect(() => {
 
@@ -32,32 +41,42 @@ const ViewRents = () => {
 
   }, [id]);
 
-
   const removeRent = async () => {
-    try {
-      const result = await deleteRent(id);
-      navigate('/rents')
-      toast.warn(`Aluguel de ID: ${data.id} removido com sucesso`)
-    } catch (error) {
-      console.error('Erro ao obter Aluguel:', error);
+    const confirmation = await Swal.fire(configConfirmation);
+
+    if (confirmation.isConfirmed) {
+      try {
+        await deleteRent(id);
+        navigate('/rents')
+        toast.warn(`Aluguel ${data.id} removido com sucesso`)
+      } catch (error) {
+        toast.error(error.response.data.message);
+        console.log(error)
+      }
     }
+
   };
 
 
   return (
+
     <ValidateAdmin>
       <ValidateData data={data} message={'Aluguel não encontrado'}>
 
         <Card title={'Detalhes do Aluguel'}>
 
-          <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={data.id}>
-            <li>ID: {data.id}</li>
-            <li>Data: {data.date}</li>
-            <li>ID Cliente: {data.Rent.id}</li>
-            <li>Nome do Cliente: {data.Rent.name}</li>
-            <li>ID Livro: {data.book.id}</li>
-            <li>Título do Livro: {data.book.title}</li>
-          </ul>
+          {data.id && (
+
+            <ul className="max-w space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={data.id}>
+              <li>ID: {data.id}</li>
+              <li>Data: {data.date}</li>
+              <li>ID Cliente: {data.customer.id}</li>
+              <li>Nome do Cliente: {data.customer.name}</li>
+              <li>ID Livro: {data.book.id}</li>
+              <li>Título do Livro: {data.book.title}</li>
+            </ul>
+
+          )}
 
           {/* botões: */}
 
@@ -80,6 +99,7 @@ const ViewRents = () => {
 
       </ValidateData>
     </ValidateAdmin>
+
   );
 }
 

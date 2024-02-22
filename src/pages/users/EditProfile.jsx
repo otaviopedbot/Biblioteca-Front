@@ -30,8 +30,6 @@ const EditProfile = () => {
         cancelButtonColor: "#d33",
         confirmButtonText: "Sim, deletar usuário!"
     }
-
-
     const [profile, setProfile] = useState({
         username: "",
         email: "",
@@ -96,7 +94,7 @@ const EditProfile = () => {
                     <InputField type="email" label="E-mail" name="email" value={profile.email} onChange={(e) => setProfile({ ...profile, email: e.target.value })} />
                     <InputField type="password" label="Senha" name="password" value={profile.password} onChange={(e) => setProfile({ ...profile, password: e.target.value })} />
                     <InputField type="text" label="Imagem URL" name="image" value={profile.image} onChange={(e) => setProfile({ ...profile, image: e.target.value })} />
-                    <InputField type="text" label="Detalhes" name="details" value={profile.details} onChange={(e) => setProfile({ ...profile, details: e.target.value })} />
+                    <InputField type="text" label="Sobre" name="details" value={profile.details} onChange={(e) => setProfile({ ...profile, details: e.target.value })} />
 
                     {!isLoading &&
 

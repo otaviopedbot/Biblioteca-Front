@@ -22,7 +22,7 @@ import Favorite from '../../components/buttons/Favorite';
 const ViewBooks = () => {
 
   const [body, setBody] = useState("")
-  const [rate, setRate] = useState()
+  const [rate, setRate] = useState(0)
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false)
@@ -95,15 +95,16 @@ const ViewBooks = () => {
 
   const saveReview = async (e) => {
     e.preventDefault()
-
     try {
       setIsLoading(true)
+      console.log(id, user.user.id, body, rate)
       await postReview(id, user.user.id, body, rate)
       toast.success(`Livro ${book.title} avaliado com sucesso`);
       setPage(1)
       setIsLoading(false)
     } catch (error) {
       toast.error(`Erro ao avaliar Livro: ${error.response.data.message}`);
+      console.log(error)
     } finally {
       setIsLoading(false);
     }
@@ -206,52 +207,45 @@ const ViewBooks = () => {
             </div>
           </div>
 
-          {/* Avaliações */}
+          {/* Avaliações / comentários */}
 
           <div className="p-8 m-4">
             <div className="rounded-lg overflow-hidden shadow-md bg-white dark:bg-gray-800 text-gray-700 dark:text-white">
 
-              {book.length != 0 && (
+              {/* avaliações */}
 
-                <div className="p-6 text-center">
-                  <div className="font-bold text-xl mb-4">Avaliações</div>
+              <div className="p-6 text-center">
+                <div className="font-bold text-xl mb-4">Avaliações</div>
+
+                {book.length != 0 && !data ? (
+                  <p>Nenhuma avaliação registrada para este livro ainda.</p>
+                ) : (
+
                   <div className="space-y-4">
-
                     {data.map((review) => (
-
                       <div key={review.id} className="rounded-lg overflow-hidden shadow-md bg-white dark:bg-gray-700 text-gray-700 dark:text-white p-2">
+                        <h1>Usuário:<Link className="hover:text-blue-500 font-bold" to={`/users/${review.username}`}> {review.username}</Link></h1>
 
-                        <Link to={`/users/${review.username}`}>
-                          Usuário: {review.username}
-                        </Link>
-                        <br></br>
-                        Nota: {review.rating}/10
-                        <br></br>
-                        Comentário: {review.body}
-                        <br></br>
+                        <p>Nota: {review.rating}/10</p>
 
-                        {user.user.id == review.user_id && (
+                        <p>{review.body}</p>
+
+                        {user.user.id === review.user_id && (
                           <span onClick={removeReview}>
-
                             <Delete size={4} />
-
                           </span>
                         )}
 
                       </div>
-
                     ))}
 
+                    <Pagination totalPages={totalPages} setPage={setPage} page={page} />
                   </div>
+                )}
 
-                  <Pagination totalPages={totalPages} setPage={setPage} page={page} />
+              </div>
 
-                </div>
-
-              )}
-
-
-              {/* formulario */}
+              {/* formulário */}
 
               <div className='px-6 pb-6'>
 
@@ -261,15 +255,19 @@ const ViewBooks = () => {
 
                   <InputField label={"Criar avaliação"} type={"textarea"} name={"body"} value={body} onChange={(e) => setBody(e.target.value)} />
 
-                  <InputField label={"Nota de 0 a 10"} type={"range"} name={"Rate"} value={rate} onChange={(e) => setRate(e.target.value)} />
+                  <p className="block text-sm font-medium text-gray-900 dark:text-white">Nota de 0 a 10</p>
 
-                  {/* botões */}
+                  <div className="flex items-center space-x-4 justify-center">
 
-                  {!isLoading && (
+                    <InputField type={"range"} name={"Rate"} value={rate} onChange={(e) => setRate(e.target.value)} />
 
-                    <Check />
+                    {/* botões */}
 
-                  )}
+                    {!isLoading && (
+                      <Check />
+                    )}
+
+                  </div>
 
                 </form>
 

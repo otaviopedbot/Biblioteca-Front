@@ -1,6 +1,7 @@
 import React from 'react';
 
 const InputField = ({ label, type, name, value, onChange }) => {
+
     // Verifica se o tipo é "textarea" e renderiza um textarea
     if (type === 'textarea') {
         return (

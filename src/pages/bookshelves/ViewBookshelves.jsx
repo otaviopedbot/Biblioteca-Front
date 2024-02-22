@@ -68,7 +68,7 @@ const ViewBookshelves = () => {
 
         <Card title={'Detalhes da Estante'}>
 
-          <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={data.id}>
+          <ul className="max-w space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={data.id}>
             <li>ID: {data.id}</li>
             <li>Nome: {data.name}</li>
           </ul>

@@ -11,7 +11,6 @@ import Register from './pages/Register';
 
 import Profile from './pages/users/Profile';
 import EditProfile from './pages/users/EditProfile';
-import Dashboard from './pages/users/Dashboard';
 import Users from './pages/users/Users';
 
 import Authors from './pages/authors/Authors';
@@ -92,8 +91,6 @@ function App() {
           {/* user */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
-          {/* admin */}
-          <Route path="/profile/dashboard" element={<Dashboard />} />
 
           {/* user search */}
           <Route path="/users/:username" element={<Users />} />

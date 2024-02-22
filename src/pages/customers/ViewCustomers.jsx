@@ -48,7 +48,7 @@ const ViewCustomers = () => {
     if (confirmation.isConfirmed) {
       try {
         await deleteCustomer(id);
-        navigate('/Customers')
+        navigate('/customers')
         toast.warn(`Cliente ${data.name} removido com sucesso`)
       } catch (error) {
         toast.error(error.response.data.message);
@@ -60,13 +60,13 @@ const ViewCustomers = () => {
 
 
   return (
+
     <ValidateAdmin>
       <ValidateData data={data} message={'Autor não encontrado'}>
 
-
         <Card title={'Detalhes do Cliente'}>
 
-          <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={data.id}>
+          <ul className="max-w space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={data.id}>
             <li>ID: {data.id}</li>
             <li>Nome: {data.name}</li>
             <li>Telefone: {data.phone}</li>
@@ -89,9 +89,7 @@ const ViewCustomers = () => {
             <Delete />
           </span>
 
-
         </Card>
-
 
       </ValidateData>
     </ValidateAdmin>
