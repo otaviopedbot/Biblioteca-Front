@@ -3,12 +3,14 @@ FROM node:18.17.1
 WORKDIR /usr/app
 
 COPY package*.json ./
-RUN npm install
 
 COPY . .
 
 EXPOSE 8000
 
-RUN chmod +x entrypoint.sh
+# RUN chmod +x entrypoint.sh
 
-ENTRYPOINT ["./start.sh"]
+# ENTRYPOINT ["./start.sh"]
+
+COPY ./docker-entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
