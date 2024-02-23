@@ -16,6 +16,8 @@ const CreateBooks = () => {
   const [title, setTitle] = useState("")
   const [page, setPage] = useState("")
   const [quantity, setQuantity] = useState("")
+  const [synopsis, setSynopsis] = useState("")
+  const [cover, setCover] = useState("")
   const [author_id, setAuthor_id] = useState("")
   const [bookshelve_id, setBookshelve_id] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -24,14 +26,14 @@ const CreateBooks = () => {
   const saveBook = async (e) => {
     e.preventDefault()
 
-    if (title === '' || page === '' || quantity === '' || author_id === '' || bookshelve_id === '') {
-      toast.warn('Preencha todos os campos corretamente')
-      return;
-    }
+    // if (title === '' || page === '' || quantity === '' || author_id === '' || bookshelve_id === '') {
+    //   toast.warn('Preencha todos os campos corretamente')
+    //   return;
+    // }
 
     try {
       setIsLoading(true)
-      await postBook(title, page, quantity, author_id, bookshelve_id)
+      await postBook(title, page, quantity, author_id, bookshelve_id, synopsis, cover)
       toast.success(`Livro ${title} cadastrado com sucesso`);
       navigate('/books')
       setIsLoading(false)
@@ -44,7 +46,7 @@ const CreateBooks = () => {
 
 
   return (
-    
+
     <ValidateAdmin>
 
       <Card title={'Novo Livro'}>
@@ -52,6 +54,10 @@ const CreateBooks = () => {
         <form onSubmit={saveBook}>
 
           <InputField label={"Título"} type={"text"} name={"title"} value={title} onChange={(e) => setTitle(e.target.value)} />
+
+          <InputField label={"Capa"} type={"text"} name={"cover"} value={cover} onChange={(e) => setCover(e.target.value)} />
+
+          <InputField label={"Sinópse"} type={"text"} name={"synopsis"} value={synopsis} onChange={(e) => setSynopsis(e.target.value)} />
 
           <InputField label={"Páginas"} type={"number"} name={"pages"} value={page} onChange={(e) => setPage(e.target.value)} />
 

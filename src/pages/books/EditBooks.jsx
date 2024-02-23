@@ -23,7 +23,10 @@ const EditBooks = () => {
     page: "",
     quantity: "",
     author_id: "",
-    bookshelve_id: ""
+    bookshelve_id: "",
+    synopsis: "",
+    cover: ""
+
   })
 
   useEffect(() => {
@@ -37,7 +40,8 @@ const EditBooks = () => {
           quantity: data.quantity,
           synopsis: data.synopsis,
           author_id: data.author.id,
-          bookshelve_id: data.bookshelve.id
+          bookshelve_id: data.bookshelve.id,
+          cover: data.cover
         });
       } catch (error) {
         toast.error(error.response.data.message);
@@ -55,7 +59,7 @@ const EditBooks = () => {
 
     try {
       setIsLoading(true);
-      await updateBook(id, book.title, book.page, book.quantity, book.author_id, book.bookshelve_id)
+      await updateBook(id, book.title, book.page, book.quantity, book.author_id, book.bookshelve_id, book.synopsis, book.cover)
       toast.success(`Livro ${book.title} editado com sucesso`);
       setIsLoading(false);
       navigate(`/books/${id}`);
@@ -79,6 +83,8 @@ const EditBooks = () => {
             <InputField label={"Título"} type={"text"} name={"title"} value={book.title} onChange={(e) => setBook({ ...book, title: e.target.value })} />
 
             <InputField label={"Sinópse"} type={"textarea"} name={"synopsis"} value={book.synopsis} onChange={(e) => setBook({ ...book, synopsis: e.target.value })} />
+
+            <InputField label={"Capa"} type={"text"} name={"cover"} value={book.cover} onChange={(e) => setBook({ ...book, cover: e.target.value })} />
 
             <InputField label={"Páginas"} type={"number"} name={"page"} value={book.page} onChange={(e) => setBook({ ...book, page: e.target.value })} />
 

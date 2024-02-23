@@ -17,6 +17,8 @@ import Delete from '../../components/buttons/Delete'
 import Pagination from '../../components/Pagination'
 import InputField from '../../components/InputField'
 import Favorite from '../../components/buttons/Favorite';
+import DropDown from '../../components/DropDown';
+import CustomBlue from '../../components/buttons/CustomBlue';
 
 
 const ViewBooks = () => {
@@ -50,6 +52,13 @@ const ViewBooks = () => {
     cancelButtonColor: "#d33",
     confirmButtonText: "Sim, remover!"
   };
+  const configSynopsis = {
+    title: "Sinopse",
+    text: book.synopsis,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Voltar"
+  }
 
 
   useEffect(() => {
@@ -102,6 +111,7 @@ const ViewBooks = () => {
       toast.success(`Livro ${book.title} avaliado com sucesso`);
       setPage(1)
       setIsLoading(false)
+      window.location.reload()
     } catch (error) {
       toast.error(`Erro ao avaliar Livro: ${error.response.data.message}`);
       console.log(error)
@@ -117,6 +127,7 @@ const ViewBooks = () => {
         await deleteReview(id, user.user.id);
         setPage(1)
         toast.success(`Avaliação apagada com sucesso`);
+        window.location.reload()
       } catch (error) {
         toast.error(error.response.data.message);
         console.log(error);
@@ -155,6 +166,12 @@ const ViewBooks = () => {
 
   };
 
+  const teste = async () => {
+    await Swal.fire(configSynopsis);
+  }
+
+
+  console.log(book)
 
   return (
     <ValidateUser>
@@ -168,8 +185,32 @@ const ViewBooks = () => {
             <div className="rounded-lg overflow-hidden shadow-md bg-white dark:bg-gray-800 text-gray-700 dark:text-white">
               <div className="p-6 text-center">
                 <div className="font-bold text-xl mb-4">{book.title}</div>
-                <h1 className='m-2'>Sinopse:</h1>
-                <h2>{book.synopsis}</h2>
+
+                {book.cover ? (
+
+                  <>
+
+                    <img className="rounded-lg mx-auto w-1/3 mb-4" src={book.cover}></img>
+
+                    <span onClick={teste}>
+                      <CustomBlue title={'Ver Sinopse'} />
+                    </span>
+
+                  </>
+
+                ) : (
+
+                  <>
+
+                    <h1>Sinopse:</h1>
+                    <h2>{book.synopsis}</h2>
+
+                  </>
+
+
+                )}
+
+
                 <h1 className='m-2'>Informações:</h1>
                 <ul className="space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={book.id}>
                   <li>ID: {book.id}</li>
