@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { getAllAuthors } from '../../requests/author';
 import { toast } from 'react-toastify';
+import AuthService from "../../services/authService"
 
 //componentes:
 import Table from '../../components/Table';
 import ValidateData from '../../components/validation/ValidateData';
-import Pagination from '../../components/Pagination';
 
 const Authors = () => {
   const [data, setData] = useState(null);
   const [page, setPage] = useState(1);
   const [pageSize] = useState(5); // Número de itens por página
   const [totalPages, setTotalPages] = useState(0);
+  const user = AuthService.getCurrentUser();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,7 +36,17 @@ const Authors = () => {
 
       <ValidateData data={data} message={"Não foi possivel obter autores"} >
 
-        <Table data={data} titles={titles} tableTitle={'Autores'} btnTitle={'Novo Autor'} totalPages={totalPages} setPage={setPage} page={page} />
+        <h1>Lista de autores</h1>
+
+        {user && user.user.is_admin == 1 && (
+          <div className="mt-5">
+            <Link to={'create'}>
+              <CustomBlue title={'Novo autor'} />
+            </Link>
+          </div>
+        )}
+
+        <Table data={data} titles={titles} totalPages={totalPages} setPage={setPage} page={page} />
 
       </ValidateData >
 
