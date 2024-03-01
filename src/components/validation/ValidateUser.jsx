@@ -5,6 +5,7 @@ import AuthService from "../../services/authService"
 import ErrorScreen from '../ErrorScreen'
 
 const ValidateUser = ({ children }) => {
+  
   const user = AuthService.getCurrentUser();
 
   return (

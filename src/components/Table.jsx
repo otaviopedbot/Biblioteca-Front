@@ -12,7 +12,7 @@ import Pagination from './Pagination';
 const Table = ({ titles, tableTitle, btnTitle, data, totalPages, setPage, page }) => {
 
     return (
-        <div className="flex items-center justify-center min-h-screen mt-24 text-center">
+        <div className="flex items-center justify-center h-screen text-center">
             <div className="overflow-x-auto shadow-md sm:rounded-lg w-full lg:w-4/5 xl:w-3/4">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <caption className="p-5 text-lg font-semibold text-center rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">

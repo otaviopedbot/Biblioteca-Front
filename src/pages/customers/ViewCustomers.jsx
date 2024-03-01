@@ -64,6 +64,9 @@ const ViewCustomers = () => {
     <ValidateAdmin>
       <ValidateData data={data} message={'Autor não encontrado'}>
 
+      <div className='grid grid-cols-1 grid-rows-1 h-screen'>
+      <div className='flex justify-center items-center'>
+
         <Card title={'Detalhes do Cliente'}>
 
           <ul className="max-w space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={data.id}>
@@ -90,6 +93,9 @@ const ViewCustomers = () => {
           </span>
 
         </Card>
+
+        </div>
+        </div>
 
       </ValidateData>
     </ValidateAdmin>

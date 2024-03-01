@@ -39,7 +39,10 @@ const Users = () => {
 
   return user ? (
 
-    <Card title={`${user.username}`}>
+    <div className='grid grid-cols-1 grid-rows-1 h-screen'>
+      <div className='flex justify-center items-center'>
+
+        <Card title={`${user.username}`}>
           <img className="rounded-lg mx-auto w-1/2" src={user.image} alt="User profile image"></img>
           <h1>Sobre mim:</h1>
           <h2>{user.details}</h2>
@@ -63,6 +66,9 @@ const Users = () => {
             <Return />
           </Link>
         </Card>
+
+      </div>
+    </div>
 
   ) : (
     <ErrorScreen message={'Usuário não encontrado'} />

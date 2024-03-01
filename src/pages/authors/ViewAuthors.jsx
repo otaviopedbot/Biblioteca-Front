@@ -64,6 +64,9 @@ const ViewAuthors = () => {
     <ValidateUser>
       <ValidateData data={data} message={'Autor não encontrado'}>
 
+      <div className='grid grid-cols-1 grid-rows-1 h-screen'>
+      <div className='flex justify-center items-center'>
+
         <Card title={'Detalhes do Autor'}>
 
           <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" key={data.id}>
@@ -89,6 +92,9 @@ const ViewAuthors = () => {
           )}
 
         </Card>
+
+        </div>
+        </div>
 
       </ValidateData>
     </ValidateUser> 

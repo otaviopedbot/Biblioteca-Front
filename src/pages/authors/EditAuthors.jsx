@@ -62,6 +62,9 @@ const EditAuthors = () => {
     <ValidateAdmin>
       <ValidateData data={author} message={'Autor não encontrado'}>
 
+      <div className='grid grid-cols-1 grid-rows-1 h-screen'>
+      <div className='flex justify-center items-center'>
+
         <Card title={'Editar Autor'}>
 
           <form onSubmit={editAuthor}>
@@ -87,6 +90,9 @@ const EditAuthors = () => {
           </form>
 
         </Card>
+
+        </div>
+        </div>
 
       </ValidateData>
     </ValidateAdmin>

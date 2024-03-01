@@ -6,38 +6,26 @@ const Home = () => {
 
   return (
 
-    <div className="grid grid-cols-2 grid-rows-1 p-8 gap-8">
+    <div className="grid grid-cols-1 h-screen text-center m-8">
+      <div className='flex justify-center items-start gap-4'>
 
-      <div>
-        <Card title={'Nossa História'} size={'full'}>
-
-          <p>
-            A Biblioteca Imaginação foi fundada em 1990 por Samuel Silva, um homem apaixonado por histórias desde sua infância. Samuel cresceu em um lar onde os livros eram tesouros sagrados, e sua vontade de compartilhar essa paixão com a comunidade foi o que o motivou a criar a biblioteca.
-            <br />
-            Ao longo dos anos, Samuel trabalhou incansavelmente para arrecadar fundos e mobilizar voluntários, conseguindo transformar um antigo prédio abandonado em um oásis literário. Seu objetivo era oferecer um refúgio para os amantes da leitura, onde pudessem escapar para mundos imaginários e encontrar conforto nas páginas dos livros.
-          </p>
+        <Card title={'Nossa História'} >
 
           <p>
-            A Biblioteca Imaginação, localizada em um bairro tranquilo, tornou-se um símbolo de dedicação e amor pela literatura. Samuel escolheu pessoalmente a decoração, garantindo que cada detalhe refletisse a magia contida nos livros que preenchiam as estantes.
-            <br />
-            Dentro da biblioteca, os corredores foram batizados em homenagem a diferentes gêneros literários, proporcionando uma jornada única aos visitantes. Samuel acreditava que a literatura tinha o poder de unir as pessoas e enriquecer suas vidas, e sua visão foi incorporada em cada aspecto da Biblioteca Imaginação Literária.
-            <br />
-            Samuel não apenas fundou a biblioteca, mas também participou ativamente da comunidade literária, organizando eventos, palestras e incentivando a participação de autores locais. Seu legado vive não apenas nas estantes repletas de livros, mas na atmosfera acolhedora e inspiradora que ele criou para as gerações presentes e futuras.
+          A Biblioteca Imaginação foi fundada em 1990 por Samuel Silva, um entusiasta de histórias desde a infância, inspirado pela paixão de compartilhar livros, Samuel transformou um prédio abandonado em um refúgio literário. Ele dedicou anos para arrecadar fundos e mobilizar voluntários. A biblioteca, situada em um bairro tranquilo, é um símbolo de amor pela literatura. Samuel pessoalmente escolheu a decoração, refletindo a magia dos livros. Os corredores são batizados com nomes de gêneros literários, proporcionando uma jornada única aos visitantes. Samuel participava ativamente na comunidade literária, organizando eventos e incentivando autores locais. Seu legado transcende as estantes repletas de livros, incorporado na atmosfera acolhedora e inspiradora para as gerações presentes e futuras.
           </p>
 
         </Card>
-      </div>
 
-      <div>
-        <Card title={''} size={'full'}>
+        <Card title={''}>
 
           <img src="https://www.revistaprosaversoearte.com/content/uploads/2017/01/Kansas-City-Public-Library-Missouri-USA.jpg" className="rounded-lg mx-auto w-full" />
 
           <p>Rua das Histórias N 123, Bairro da Imaginação, Cidade das Letras</p>
 
         </Card>
-      </div>
 
+      </div>
     </div>
 
   )

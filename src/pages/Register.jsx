@@ -7,6 +7,7 @@ import Card from '../components/Card'
 import Check from '../components/buttons/Check'
 import Return from '../components/buttons/Return'
 import { toast } from 'react-toastify';
+import InputField from '../components/InputField'
 
 const Login = () => {
 
@@ -45,45 +46,39 @@ const Login = () => {
   };
 
   return (
-    <div>
 
-      <Card title={'Cadastro'}>
+    <div className='grid grid-cols-1 grid-rows-1 h-screen'>
+      <div className='flex justify-center items-center'>
 
-
-        <form onSubmit={handleRegister}>
-
-          <div className='mb-2'>
-            <label htmlFor="email" classemail="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} id="username" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Username' />
-          </div>
-
-          <div className='mb-2'>
-            <label htmlFor="email" classemail="block mb-2 text-sm font-medium text-gray-900 dark:text-white">E-mail</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='E-mail' />
-          </div>
-
-          <div className='mb-2'>
-            <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Senha</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Senha' />
-          </div>
-
-          {/* botões */}
-
-          {!isLoading && (
-
-            <Check />
-
-          )}
-
-          <Link to={'/login'}>
-            <Return />
-          </Link>
-
-        </form>
+        <Card title={'Cadastro'}>
 
 
-      </Card>
+          <form onSubmit={handleRegister}>
 
+            <InputField label={"Username"} type={"text"} name={"username"} value={username} onChange={(e) => setUsername(e.target.value)} />
+
+            <InputField label={"E-mail"} type={"email"} name={"email"} value={email} onChange={(e) => setEmail(e.target.value)} />
+
+            <InputField label={"Senha"} type={"password"} name={"password"} value={password} onChange={(e) => setPassword(e.target.value)} />
+
+
+            {/* botões */}
+
+            {!isLoading && (
+
+              <Check />
+
+            )}
+
+            <Link to={'/login'}>
+              <Return />
+            </Link>
+
+          </form>
+
+        </Card>
+
+      </div>
     </div>
   )
 }

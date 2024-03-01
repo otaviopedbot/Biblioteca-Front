@@ -17,8 +17,8 @@ import Delete from '../../components/buttons/Delete'
 import Pagination from '../../components/Pagination'
 import InputField from '../../components/InputField'
 import Favorite from '../../components/buttons/Favorite';
-import DropDown from '../../components/DropDown';
 import CustomBlue from '../../components/buttons/CustomBlue';
+import Card from '../../components/Card';
 
 
 const ViewBooks = () => {
@@ -59,7 +59,6 @@ const ViewBooks = () => {
     cancelButtonColor: "#d33",
     confirmButtonText: "Voltar"
   }
-
 
   useEffect(() => {
     const showBook = async () => {
@@ -166,25 +165,24 @@ const ViewBooks = () => {
 
   };
 
-  const teste = async () => {
+  const sinopse = async () => {
     await Swal.fire(configSynopsis);
   }
 
 
-  console.log(book)
 
   return (
     <ValidateUser>
       <ValidateData data={book} message={'Livro não encontrado'}>
 
-        <div className="grid grid-cols-2 grid-rows-1 gap-4 h-screen text-center mt-24 m-8">
+        <div className="grid grid-cols-1 h-screen text-center m-8">
+          <div className='flex justify-center items-start gap-4'>
 
-          {/* Livro */}
+            {/* Livro */}
 
-          <div className="p-8 m-4">
-            <div className="rounded-lg overflow-hidden shadow-md bg-white dark:bg-gray-800 text-gray-700 dark:text-white">
-              <div className="p-6 text-center">
-                <div className="font-bold text-xl mb-4">{book.title}</div>
+            <div>
+
+              <Card title={book.title}>
 
                 {book.cover ? (
 
@@ -192,7 +190,7 @@ const ViewBooks = () => {
 
                     <img className="rounded-lg mx-auto w-1/3 mb-4" src={book.cover}></img>
 
-                    <span onClick={teste}>
+                    <span onClick={sinopse}>
                       <CustomBlue title={'Ver Sinopse'} />
                     </span>
 
@@ -244,81 +242,84 @@ const ViewBooks = () => {
                   </span>
                 )}
 
-              </div>
-            </div>
-          </div>
-
-          {/* Avaliações / comentários */}
-
-          <div className="p-8 m-4">
-            <div className="rounded-lg overflow-hidden shadow-md bg-white dark:bg-gray-800 text-gray-700 dark:text-white">
-
-              {/* avaliações */}
-
-              <div className="p-6 text-center">
-                <div className="font-bold text-xl mb-4">Avaliações</div>
-
-                {book.length != 0 && !data ? (
-                  <p>Nenhuma avaliação registrada para este livro ainda.</p>
-                ) : (
-
-                  <div className="space-y-4">
-                    {data.map((review) => (
-                      <div key={review.id} className="rounded-lg overflow-hidden shadow-md bg-white dark:bg-gray-700 text-gray-700 dark:text-white p-2">
-                        <h1>Usuário:<Link className="hover:text-blue-500 font-bold" to={`/users/${review.username}`}> {review.username}</Link></h1>
-
-                        <p>Nota: {review.rating}/10</p>
-
-                        <p>{review.body}</p>
-
-                        {user.user.id === review.user_id && (
-                          <span onClick={removeReview}>
-                            <Delete size={4} />
-                          </span>
-                        )}
-
-                      </div>
-                    ))}
-
-                    <Pagination totalPages={totalPages} setPage={setPage} page={page} />
-                  </div>
-                )}
-
-              </div>
-
-              {/* formulário */}
-
-              <div className='px-6 pb-6'>
-
-                <div className="font-bold text-xl mb-4">Escreva uma avaliação</div>
-
-                <form onSubmit={saveReview}>
-
-                  <InputField label={"Criar avaliação"} type={"textarea"} name={"body"} value={body} onChange={(e) => setBody(e.target.value)} />
-
-                  <p className="block text-sm font-medium text-gray-900 dark:text-white">Nota de 0 a 10</p>
-
-                  <div className="flex items-center space-x-4 justify-center">
-
-                    <InputField type={"range"} name={"Rate"} value={rate} onChange={(e) => setRate(e.target.value)} />
-
-                    {/* botões */}
-
-                    {!isLoading && (
-                      <Check />
-                    )}
-
-                  </div>
-
-                </form>
-
-              </div>
-
+              </Card>
 
             </div>
+
+            {/* Avaliações / comentários */}
+
+            <div>
+
+              <Card title={"Avaliações"}>
+
+                {/* avaliações */}
+
+                <div className="p-6 text-center">
+
+
+                  {book.length != 0 && !data ? (
+                    <p>Nenhuma avaliação registrada para este livro ainda.</p>
+                  ) : (
+
+                    <div className="space-y-4">
+                      {data.map((review) => (
+                        <div key={review.id} className="rounded-lg overflow-hidden shadow-md bg-white dark:bg-gray-700 text-gray-700 dark:text-white p-2">
+                          <h1>Usuário:<Link className="hover:text-blue-500 font-bold" to={`/users/${review.username}`}> {review.username}</Link></h1>
+
+                          <p>Nota: {review.rating}/10</p>
+
+                          <p>{review.body}</p>
+
+                          {user.user.id === review.user_id && (
+                            <span onClick={removeReview}>
+                              <Delete size={4} />
+                            </span>
+                          )}
+
+                        </div>
+                      ))}
+
+                      <Pagination totalPages={totalPages} setPage={setPage} page={page} />
+                    </div>
+                  )}
+
+                </div>
+
+                {/* formulário */}
+
+                <div className='px-6 pb-6'>
+
+                  <div className="font-bold text-xl mb-4 text-gray-900 dark:text-white">Escreva uma avaliação</div>
+
+                  <form onSubmit={saveReview}>
+
+                    <InputField label={"Criar avaliação"} type={"textarea"} name={"body"} value={body} onChange={(e) => setBody(e.target.value)} />
+
+                    <p className="block text-sm font-medium text-gray-900 dark:text-white">Nota de 0 a 10</p>
+
+                    <div className="flex items-center space-x-4 justify-center">
+
+                      <InputField type={"range"} name={"Rate"} value={rate} onChange={(e) => setRate(e.target.value)} />
+
+                      {/* botões */}
+
+                      {!isLoading && (
+                        <Check />
+                      )}
+
+                    </div>
+
+                  </form>
+
+                </div>
+
+
+              </Card>
+
+            </div>
+
           </div>
         </div>
-
 
       </ValidateData>
     </ValidateUser>

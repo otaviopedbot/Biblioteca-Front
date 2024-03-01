@@ -66,6 +66,9 @@ const EditCustomers = () => {
     <ValidateAdmin>
       <ValidateData data={customer} message={'Cliente não encontrado'}>
 
+      <div className='grid grid-cols-1 grid-rows-1 h-screen'>
+      <div className='flex justify-center items-center'>
+
         <Card title={'Editar Cliente'}>
 
           <form onSubmit={editCustomer}>
@@ -107,6 +110,9 @@ const EditCustomers = () => {
           </form>
 
         </Card>
+
+        </div>
+        </div>
 
       </ValidateData>
     </ValidateAdmin>

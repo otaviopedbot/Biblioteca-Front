@@ -45,6 +45,9 @@ const CreateBookshelves = () => {
 
     <ValidateAdmin>
 
+<div className='grid grid-cols-1 grid-rows-1 h-screen'>
+      <div className='flex justify-center items-center'>
+
       <Card title={'Nova Estante'}>
 
         <form onSubmit={saveBookshelve}>
@@ -66,6 +69,9 @@ const CreateBookshelves = () => {
         </form>
 
       </Card>
+
+      </div>
+      </div>
 
     </ValidateAdmin>
 

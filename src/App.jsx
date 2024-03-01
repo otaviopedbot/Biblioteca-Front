@@ -40,7 +40,7 @@ import EditCustomers from './pages/customers/EditCustomers';
 
 
 //componentes:
-import Navbar from './components/Navbar';
+import Navbar2 from './components/Navbar2'
 import Footer from './components/Footer';
 
 
@@ -49,7 +49,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Navbar />
+        <Navbar2 />
         <Routes>
 
           <Route path="/" element={<Home />} />
@@ -97,7 +97,7 @@ function App() {
 
         </Routes>
       </BrowserRouter>
-      <Footer />
+
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -111,7 +111,9 @@ function App() {
         pauseOnHover
         theme="dark"
         transition:Bounce />
+      <Footer />
     </>
+
   )
 }
 

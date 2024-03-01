@@ -66,6 +66,9 @@ const EditRents = () => {
     <ValidateAdmin>
       <ValidateData data={rent} message={'Aluguel não encontrado'}>
 
+      <div className='grid grid-cols-1 grid-rows-1 h-screen'>
+      <div className='flex justify-center items-center'>
+
         <Card title={'Editar Aluguel'}>
 
           <form onSubmit={editRent}>
@@ -107,6 +110,9 @@ const EditRents = () => {
           </form>
 
         </Card>
+
+        </div>
+        </div>
 
       </ValidateData>
     </ValidateAdmin>

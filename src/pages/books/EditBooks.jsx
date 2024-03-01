@@ -76,39 +76,45 @@ const EditBooks = () => {
     <ValidateData data={book} message={'Livro não encontrado'} >
       <ValidateAdmin>
 
-        <Card title={'Editar Livro'}>
+        <div className='grid grid-cols-1 grid-rows-1 h-screen'>
+          <div className='flex justify-center items-center'>
 
-          <form onSubmit={editBook}>
+            <Card title={'Editar Livro'}>
 
-            <InputField label={"Título"} type={"text"} name={"title"} value={book.title} onChange={(e) => setBook({ ...book, title: e.target.value })} />
+              <form onSubmit={editBook}>
 
-            <InputField label={"Sinópse"} type={"textarea"} name={"synopsis"} value={book.synopsis} onChange={(e) => setBook({ ...book, synopsis: e.target.value })} />
+                <InputField label={"Título"} type={"text"} name={"title"} value={book.title} onChange={(e) => setBook({ ...book, title: e.target.value })} />
 
-            <InputField label={"Capa"} type={"text"} name={"cover"} value={book.cover} onChange={(e) => setBook({ ...book, cover: e.target.value })} />
+                <InputField label={"Sinópse"} type={"textarea"} name={"synopsis"} value={book.synopsis} onChange={(e) => setBook({ ...book, synopsis: e.target.value })} />
 
-            <InputField label={"Páginas"} type={"number"} name={"page"} value={book.page} onChange={(e) => setBook({ ...book, page: e.target.value })} />
+                <InputField label={"Capa"} type={"text"} name={"cover"} value={book.cover} onChange={(e) => setBook({ ...book, cover: e.target.value })} />
 
-            <InputField label={"Quantidade"} type={"number"} name={"quantity"} value={book.quantity} onChange={(e) => setBook({ ...book, quantity: e.target.value })} />
+                <InputField label={"Páginas"} type={"number"} name={"page"} value={book.page} onChange={(e) => setBook({ ...book, page: e.target.value })} />
 
-            <InputField label={"ID do Autor"} type={"number"} name={"author_id"} value={book.author_id} onChange={(e) => setBook({ ...book, author_id: e.target.value })} />
+                <InputField label={"Quantidade"} type={"number"} name={"quantity"} value={book.quantity} onChange={(e) => setBook({ ...book, quantity: e.target.value })} />
 
-            <InputField label={"ID da Estante"} type={"number"} name={"bookshelve_id"} value={book.author_id} onChange={(e) => setBook({ ...book, bookshelve_id: e.target.value })} />
+                <InputField label={"ID do Autor"} type={"number"} name={"author_id"} value={book.author_id} onChange={(e) => setBook({ ...book, author_id: e.target.value })} />
 
-            {/* botões */}
+                <InputField label={"ID da Estante"} type={"number"} name={"bookshelve_id"} value={book.author_id} onChange={(e) => setBook({ ...book, bookshelve_id: e.target.value })} />
 
-            {!isLoading && (
+                {/* botões */}
 
-              <Check />
+                {!isLoading && (
 
-            )}
+                  <Check />
 
-            <Link to={`/Books/${id}`}>
-              <Return />
-            </Link>
+                )}
 
-          </form>
+                <Link to={`/Books/${id}`}>
+                  <Return />
+                </Link>
 
-        </Card>
+              </form>
+
+            </Card>
+
+          </div>
+        </div>
 
       </ValidateAdmin>
     </ValidateData>

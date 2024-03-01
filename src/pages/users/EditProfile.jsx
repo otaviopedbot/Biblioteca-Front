@@ -86,6 +86,9 @@ const EditProfile = () => {
 
         <ValidateUser>
 
+<div className='grid grid-cols-1 grid-rows-1 h-screen'>
+      <div className='flex justify-center items-center'>
+
             <Card title={'Editar Perfil'}>
 
                 <form onSubmit={handleSubmit}>
@@ -113,6 +116,9 @@ const EditProfile = () => {
 
                 </form>
             </Card>
+
+            </div>
+            </div>
 
         </ValidateUser>
     )
