@@ -38,8 +38,6 @@ const Table = ({ titles, tableTitle, btnTitle, data, totalPages, setPage, page }
                                 <th scope="col" className="px-4 lg:px-6 py-3">Ação</th>
 
                             )}
-
-
                         </tr>
                     </thead>
                     <tbody>
@@ -60,13 +58,13 @@ const Table = ({ titles, tableTitle, btnTitle, data, totalPages, setPage, page }
                                 )}
 
                             </tr>
+
                         ))}
 
                     </tbody>
 
                 </table>
-
-                <div className="p-5 text-lg font-semibold text-center rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+                <div className="text-center mb-2 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 
                     <Pagination totalPages={totalPages} setPage={setPage} page={page} />
 

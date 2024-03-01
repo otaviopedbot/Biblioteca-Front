@@ -176,7 +176,7 @@ const ViewBooks = () => {
       <ValidateData data={book} message={'Livro não encontrado'}>
 
         <div className="grid grid-cols-1 h-screen text-center m-8">
-          <div className='flex justify-center items-start gap-4'>
+          <div className='md:flex justify-center items-start gap-4'>
 
             {/* Livro */}
 

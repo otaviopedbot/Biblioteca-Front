@@ -6,8 +6,6 @@ import Swal from "sweetalert2";
 import { toast } from 'react-toastify';
 
 // Componentes
-import ValidateUser from '../../components/validation/ValidateUser';
-import Config from '../../components/buttons/Config';
 import Card from '../../components/Card';
 import Return from '../../components/buttons/Return';
 import Edit from '../../components/buttons/Edit';
@@ -42,7 +40,6 @@ const Profile = () => {
     fetchFavorites();
   }, [user]);
 
-
   const removeFavorite = async (userId, bookId) => {
     const confirmation = await Swal.fire(configConfirmation);
     if (confirmation.isConfirmed) {
@@ -58,6 +55,7 @@ const Profile = () => {
     }
   };
 
+  
   return user ? (
 
     <div className='grid grid-cols-1 grid-rows-1 h-screen'>
@@ -101,7 +99,7 @@ const Profile = () => {
           <Link to={'/'}>
             <Return />
           </Link>
-          
+
         </Card>
 
       </div>

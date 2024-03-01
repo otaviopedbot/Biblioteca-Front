@@ -1,39 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { getAllAuthors } from '../requests/author';
-
 //componentes:
 import CustomBlue from './buttons/CustomBlue';
 
-const Pagination = ({totalPages, setPage, page}) => {
-    // const [data, setData] = useState([]);
-    // const [page, setPage] = useState(1);
-    // const [pageSize] = useState(5); // Número de itens por página
-    // const [totalPages, setTotalPages] = useState(0);
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await getAllAuthors(page, pageSize);
-    //             setData(response.data);
-    //             setTotalPages(Math.ceil(response.data.total_items / pageSize));
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, [page, pageSize]);
+const Pagination = ({ totalPages, setPage, page }) => {
 
 
     return (
+
         <div className='mt-2'>
-
-            {/* <ul>
-                {data.map(item => (
-                    <li key={item.id}>{item.name}</li>
-                ))}
-            </ul> */}
-
 
             <CustomBlue
                 title={
@@ -54,10 +27,9 @@ const Pagination = ({totalPages, setPage, page}) => {
                 }
                 func={() => setPage(prevPage => prevPage + 1)} disabled={page === totalPages} />
 
-
-
         </div>
     );
+
 };
 
 export default Pagination;
