@@ -93,18 +93,15 @@ const Profile = () => {
               ))}
             </ul>
           )}
-          {/* Botões */}
-          {user.user.is_admin === 1 && (
-            <Link to={'/profile/dashboard'}>
-              <Config />
-            </Link>
-          )}
+
           <Link to={'/profile/edit'}>
             <Edit />
           </Link>
+
           <Link to={'/'}>
             <Return />
           </Link>
+          
         </Card>
 
       </div>
