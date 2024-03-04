@@ -1,4 +1,5 @@
 'use client';
+import { useMediaQuery } from 'react-responsive';
 
 import { Button, Navbar } from 'flowbite-react';
 import React, { useState, useEffect } from 'react'
@@ -25,17 +26,30 @@ export default function Component() {
         setCurrentUser(null);
     };
 
+
+    const isMobile = useMediaQuery({ maxWidth: 768 });
+
+    let customClassName = ""
+    let customClassName2 = "flex md:order-2"
+
+    if (isMobile) {
+
+        customClassName = "mx-auto"
+        customClassName2 = customClassName2 + " ml-auto mt-4"
+    }
+
     return (
         <Navbar fluid rounded>
-            <Navbar.Brand href="/">
+            <Navbar.Brand href="/" className={customClassName}>
                 <span className="h-6" alt="Logo">
                     <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 16.5c0-1-8-2.7-9-2V1.8c1-1 9 .707 9 1.706M10 16.5V3.506M10 16.5c0-1 8-2.7 9-2V1.8c-1-1-9 .707-9 1.706" />
                     </svg>
                 </span>
                 <span className="ml-2 self-center text-2xl font-semibold whitespace-nowrap dark:text-white hover:text-blue-700">Biblioteca Imaginação</span>
+
             </Navbar.Brand>
-            <div className="flex md:order-2">
+            <div className={customClassName2}>
                 {currentUser ? (
 
                     <div className="navbar-nav ms-auto">
