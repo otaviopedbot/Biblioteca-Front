@@ -41,7 +41,7 @@ import EditCustomers from './pages/customers/EditCustomers';
 
 //componentes:
 import Navbar2 from './components/Navbar2'
-
+import Footer from './components/Footer';
 
 
 function App() {
@@ -97,6 +97,7 @@ function App() {
         </Routes>
         
       </BrowserRouter>
+      <Footer />
       <ToastContainer
         position="top-right"
         autoClose={3000}
