@@ -35,7 +35,7 @@ export default function Component() {
     if (isMobile) {
 
         customClassName = "mx-auto"
-        customClassName2 = customClassName2 + " ml-auto mt-4"
+        customClassName2 = customClassName2 + " mr-auto mt-4"
     }
 
     return (
@@ -71,8 +71,9 @@ export default function Component() {
                         </Link>
                     </div>
                 )}
+                </div>
                 <Navbar.Toggle />
-            </div>
+            
             <Navbar.Collapse>
                 <Navbar.Link href="/authors">Autores</Navbar.Link>
                 <Navbar.Link href="/books">Livros</Navbar.Link>
