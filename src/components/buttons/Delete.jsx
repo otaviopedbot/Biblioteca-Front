@@ -4,11 +4,8 @@ const Delete = ({ size }) => {
 
     let className = ''
 
-    if (!size) {
-        className = `w-6 h-6 text-gray-800 dark:text-white`
-    }else{
-        className = `w-${size} h-${size} text-gray-800 dark:text-white`
-    }
+    className = !size ? `w-6 h-6 text-gray-800 dark:text-white` : `w-${size} h-${size} text-gray-800 dark:text-white`;
+
 
     return (
         <button
